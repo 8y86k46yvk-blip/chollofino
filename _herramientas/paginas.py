@@ -163,6 +163,13 @@ JS_TAG = ('<script>(function(){var T={ig:"chollofinoig-21",fb:"chollofinofb-21",
           'if(!T[d])return;document.querySelectorAll(\'a[href*="amazon.es"]\').forEach(function(a){try{var x=new URL(a.href);'
           'x.searchParams.set("tag",T[d]);a.href=x.toString()}catch(e){}})})();</script>')
 
+AVISO_TG = ('<a class="aviso-tg" href="https://t.me/chollofino" target="_blank" rel="noopener">'
+            '<img src="/assets/web/fino-3-senala.webp" alt="" loading="lazy" width="211" height="400">'
+            '<span class="tg-texto"><strong>¿Quieres los chollos al momento?</strong>Únete al canal de Telegram de Chollo Fino: '
+            'cada oferta nueva te llega al móvil.</span><span class="tg-boton"><svg viewBox="0 0 24 24" fill="currentColor" '
+            'aria-hidden="true"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 '
+            '13 1.4 11.5c-1-.3-1-1 .2-1.5L20.5 2.8c.9-.3 1.6.2 1.4 1.5z"/></svg>Unirme</span></a>')
+
 LOGO = ('<svg width="36" height="36" viewBox="0 0 120 120" aria-hidden="true"><path d="M64 10 H104 A6 6 0 0 1 110 16 V56 L58 108 '
         'A8 8 0 0 1 47 108 L12 73 A8 8 0 0 1 12 62 Z" fill="none" stroke="#F4F1E8" stroke-width="9" stroke-linejoin="round">'
         '</path><circle cx="90" cy="30" r="8" fill="#F4F1E8"></circle><path d="M36 64 L50 78 L76 50" fill="none" '
@@ -207,7 +214,7 @@ def pagina(ruta, titulo, descripcion, cabeza, cuerpo, actual=None, enlaces=None,
 <div class="aviso-afiliado"><div class="wrap"><p>En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.</p></div></div>
 <main>
   <div class="cabeza-cat{' bf' if bf else ''}"><div class="wrap">{cabeza}</div></div>
-  <div class="wrap">{nav}{cuerpo}</div>
+  <div class="wrap">{nav}{cuerpo}{AVISO_TG}</div>
 </main>
 <footer class="pie">
   <div class="wrap">

@@ -283,6 +283,7 @@ button{font:inherit}
 .pie .legal a{font-weight:700;text-decoration:underline;text-underline-offset:3px;min-height:32px;display:inline-flex;align-items:center}
 .pie strong{color:var(--crema)}
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+.aviso-tg{display:flex;gap:14px;align-items:center;margin:22px 0 6px;padding:14px 16px;border-radius:20px;background:var(--verde);color:var(--crema);text-decoration:none;box-shadow:0 10px 24px rgba(15,61,46,.18)}.aviso-tg img{height:88px;width:auto;flex:0 0 auto}.aviso-tg .tg-texto{flex:1;font-size:14.5px;line-height:1.35}.aviso-tg strong{display:block;font-size:17px;color:var(--menta);margin-bottom:2px}.aviso-tg .tg-boton{display:inline-flex;align-items:center;gap:6px;background:var(--menta);color:var(--verde);font-weight:800;border-radius:999px;padding:10px 16px;white-space:nowrap}.aviso-tg .tg-boton svg{width:18px;height:18px}@media (max-width:520px){.aviso-tg{flex-wrap:wrap}.aviso-tg .tg-texto{flex:1 1 60%}.aviso-tg .tg-boton{flex:1 1 100%;justify-content:center}}
 
 /* ---------- Páginas de categoría (generadas por _herramientas/paginas.py) ---------- */
 .menu-texto a{white-space:nowrap;padding:0 8px;font-size:14px}
