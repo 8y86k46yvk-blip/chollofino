@@ -304,6 +304,8 @@ button{font:inherit}
 .pie strong{color:var(--crema)}
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 </style>
+<!-- Contador de visitas de Metricool (sin cookies) -->
+<script>function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"55207af0a8783139bf290ab2c45ab449"})});</script>
 </head>
 <body>
 <a class="barra-bf" id="barra-bf" href="#black-friday" hidden>
@@ -565,7 +567,7 @@ const TAG_AMAZON = (function(){
   try {
     const p = new URLSearchParams(location.search);
     d = (p.get("d") || "").toLowerCase();
-    if (p.has("d")) { p.delete("d"); const q = p.toString(); history.replaceState(null, "", location.pathname + (q ? "?" + q : "") + location.hash); }
+    // ?d= se deja en la dirección: así el contador de visitas cuenta de qué red llega cada visita
   } catch (e) {}
   if (!TAGS_ORIGEN[d]) {
     // Navegador integrado de cada app (si alguien toca el enlace dentro de la app)
