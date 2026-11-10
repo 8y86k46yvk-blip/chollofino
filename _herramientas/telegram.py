@@ -1,0 +1,337 @@
+#!/usr/bin/env python3
+"""Canales de Telegram de Adrian (@chollofino y @precioridiculo): publica solo lo de cada día.
+
+Lo ejecuta el taller .github/workflows/telegram.yml cada media hora (8:05-22:35 UTC). Necesita la variable de
+entorno TELEGRAM_BOT_TOKEN (secreto del repo chollofino). Desde la raíz del repo:
+
+  python3 _herramientas/telegram.py comprobar
+      Dice si el bot existe y si puede publicar en los dos canales. No publica nada.
+
+  python3 _herramientas/telegram.py publicar CARPETA [COLA_PR]
+      CARPETA es la rama «telegram» de este repo: cola.json (vídeos de Chollo Fino que apunta la tarea diaria de
+      redes) y publicado.json (lo ya publicado, lo escribe este script). COLA_PR es cola.json de la rama «telegram»
+      del repo Precioridiculo- (vídeos de Precio Ridículo).
+
+Qué se publica:
+  · Vídeos de la cola (los mismos que van a las redes), a su hora o en cuanto pase, solo los del día.
+  · @chollofino: además, cada oferta de hoy de la web (OFERTAS de index.html) con su foto de Fino (el pin de
+    public/chollofino/pines/AAAA-MM-DD-cf-pines/n<numero>.jpg) y el enlace con el ID chollofinotg-21, repartidas
+    de 11:00 a 21:59 (hora de Canarias). Una oferta que ya sale sola en un vídeo «chollo» de hoy no se repite, y un
+    mismo ASIN no se publica dos veces en 5 días.
+
+Formato de cola.json: {"piezas": [{"id": "2026-11-11-cf-dia-rowenta", "fecha": "2026-11-11", "hora": "13:30",
+  "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/<id>.mp4", "titulo": "<gancho>",
+  "numeros": [31]}]}. En Precio Ridículo, en vez de "numeros", "texto" (1-2 frases) y, solo en fase 2, "enlace"
+  (enlace de afiliado de Hacoo). Precio, enlace con ID, #publi y pie los pone este script.
+
+Con la variable SIMULAR=1 no se manda nada: enseña los mensajes (para probar).
+"""
+import datetime
+import html
+import json
+import math
+import os
+import re
+import sys
+import urllib.error
+import urllib.parse
+import urllib.request
+from pathlib import Path
+from zoneinfo import ZoneInfo
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from paginas import RAIZ, leer_datos, euros, dto  # noqa: E402
+
+CANALES = {"chollofino": "@chollofino", "precioridiculo": "@precioridiculo"}
+TAG = "chollofinotg-21"
+PINES = "https://shorts.todo-picks-academy.pages.dev/chollofino/pines/{fecha}-cf-pines/n{numero}.jpg"
+INICIO_OFERTAS, FIN_OFERTAS = 11 * 60, 21 * 60 + 59   # minutos del día, hora de Canarias
+MAX_OFERTAS_POR_VEZ = 3
+MAX_VIDEOS_POR_VEZ = 2
+DIAS_SIN_REPETIR_ASIN = 5
+ZONA = ZoneInfo("Atlantic/Canary")
+TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
+E = lambda s: html.escape(str(s if s is not None else ""), quote=False)  # noqa: E731
+
+
+# ---------- Telegram ----------
+
+def api(metodo, **datos):
+    if os.environ.get("SIMULAR"):
+        print(f"--- {metodo} {datos.get('chat_id', '')} {datos.get('photo') or datos.get('video') or ''}")
+        print(datos.get("caption") or datos.get("text") or "")
+        return {"ok": True, "result": {"message_id": 0, "id": 0, "username": "simulado", "status": "administrator",
+                                       "can_post_messages": True}}
+    peticion = urllib.request.Request(f"https://api.telegram.org/bot{TOKEN}/{metodo}",
+                                      data=json.dumps(datos).encode(), headers={"Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(peticion, timeout=60) as r:
+            return json.load(r)
+    except urllib.error.HTTPError as e:  # Telegram explica el error en el cuerpo (nunca sale el token)
+        try:
+            return json.load(e)
+        except Exception:
+            return {"ok": False, "description": f"HTTP {e.code}"}
+    except Exception as e:
+        return {"ok": False, "description": type(e).__name__}
+
+
+def api_archivo(metodo, campo, url, **datos):
+    """Si Telegram no puede bajar el archivo por su cuenta, lo bajamos aquí y se lo subimos (máx. 50 MB)."""
+    r = api(metodo, **{campo: url}, **datos)
+    if r.get("ok") or os.environ.get("SIMULAR"):
+        return r
+    print(f"   Telegram no pudo bajar {url} ({r.get('description')}): lo subo desde aquí")
+    try:
+        with urllib.request.urlopen(url, timeout=120) as f:
+            contenido, tipo = f.read(), f.headers.get("Content-Type", "application/octet-stream")
+    except Exception as e:
+        return {"ok": False, "description": f"no se pudo bajar el archivo ({type(e).__name__})"}
+    limite = "----cf" + os.urandom(8).hex()
+    cuerpo = b""
+    for k, v in datos.items():
+        v = json.dumps(v) if isinstance(v, (dict, list, bool)) else str(v)
+        cuerpo += f"--{limite}\r\nContent-Disposition: form-data; name=\"{k}\"\r\n\r\n{v}\r\n".encode()
+    nombre = url.rsplit("/", 1)[-1]
+    cuerpo += (f"--{limite}\r\nContent-Disposition: form-data; name=\"{campo}\"; filename=\"{nombre}\"\r\n"
+               f"Content-Type: {tipo}\r\n\r\n").encode() + contenido + f"\r\n--{limite}--\r\n".encode()
+    peticion = urllib.request.Request(f"https://api.telegram.org/bot{TOKEN}/{metodo}", data=cuerpo,
+                                      headers={"Content-Type": f"multipart/form-data; boundary={limite}"})
+    try:
+        with urllib.request.urlopen(peticion, timeout=180) as r2:
+            return json.load(r2)
+    except urllib.error.HTTPError as e:
+        try:
+            return json.load(e)
+        except Exception:
+            return {"ok": False, "description": f"HTTP {e.code}"}
+    except Exception as e:
+        return {"ok": False, "description": type(e).__name__}
+
+
+def es_imagen(url):
+    """Cloudflare Pages contesta 200 con la portada si el archivo no existe: hay que mirar el tipo."""
+    try:
+        with urllib.request.urlopen(urllib.request.Request(url, method="HEAD"), timeout=20) as r:
+            return r.status == 200 and r.headers.get("Content-Type", "").startswith("image/")
+    except Exception:
+        return False
+
+
+def visible(t):
+    return len(html.unescape(re.sub(r"<[^>]+>", "", t)))
+
+
+# ---------- textos ----------
+
+def con_tag(enlace):
+    u = urllib.parse.urlsplit(enlace)
+    q = dict(urllib.parse.parse_qsl(u.query))
+    q["tag"] = TAG
+    return urllib.parse.urlunsplit((u.scheme, u.netloc, u.path, urllib.parse.urlencode(q), ""))
+
+
+def asin(o):
+    m = re.search(r"/dp/([A-Z0-9]{10})", o.get("enlace") or "")
+    return m.group(1) if m else None
+
+
+def precio_linea(o):
+    d = dto(o)
+    t = f"💶 <b>{E(euros(o['precio']))}</b>"
+    if o.get("antes") and d:
+        t += f"   <s>{E(euros(o['antes']))}</s>   −{d} %"
+    return t
+
+
+def pie_cf(fecha):
+    f = datetime.date.fromisoformat(fecha)
+    return (f"🏷️ <a href=\"https://chollofino.com/?d=tg\">Más chollos en chollofino.com</a>\n"
+            f"<i>#publi · Enlace de afiliado. Precio del {f.day}/{f.month}, puede cambiar.</i>")
+
+
+def texto_oferta(o, con_descripcion=True):
+    partes = [f"🔥 <b>{E(o['producto'])}</b>", "", precio_linea(o)]
+    if con_descripcion and o.get("descripcion"):
+        partes.append(E(o["descripcion"]))
+    partes += ["", f"👉 <a href=\"{E(con_tag(o['enlace']))}\">Ver en Amazon</a>", "",
+               f"Nº {E(o['numero'])} en la web", pie_cf(o["fecha"][:10])]
+    return "\n".join(partes)
+
+
+def texto_video_cf(p, por_numero):
+    productos = [por_numero[n] for n in p.get("numeros", []) if n in por_numero]
+    partes = [f"🎬 <b>{E(corto(p.get('titulo'), 120) or 'Chollo Fino')}</b>", ""]
+    if len(productos) == 1:
+        o = productos[0]
+        partes += [f"🔥 <b>{E(o['producto'])}</b>", precio_linea(o), "",
+                   f"👉 <a href=\"{E(con_tag(o['enlace']))}\">Ver en Amazon</a> · Nº {E(o['numero'])}", ""]
+    elif productos:
+        for i, o in enumerate(productos, 1):
+            partes.append(f"{i}. {E(o['producto'])}: <b>{E(euros(o['precio']))}</b> → "
+                          f"<a href=\"{E(con_tag(o['enlace']))}\">Ver en Amazon</a>")
+        partes.append("")
+    partes.append(pie_cf(p["fecha"]))
+    return "\n".join(partes)
+
+
+def texto_video_pr(p):
+    partes = [f"🎬 <b>{E(corto(p.get('titulo'), 120) or 'Precio Ridículo')}</b>"]
+    if p.get("texto"):
+        partes += ["", E(corto(p["texto"], 600))]
+    if p.get("enlace"):
+        partes += ["", f"👉 <a href=\"{E(p['enlace'])}\">Ver en Hacoo</a>"]
+    partes += ["", "🛍️ <a href=\"https://elprecioridiculo.com\">Más en elprecioridiculo.com</a>"]
+    if p.get("enlace"):
+        f = datetime.date.fromisoformat(p["fecha"])
+        partes.append(f"<i>#publi · Enlace de afiliado. Precio del {f.day}/{f.month}, puede cambiar.</i>")
+    return "\n".join(partes)
+
+
+def corto(t, n):
+    t = str(t or "").strip()
+    return t if len(t) <= n else t[: n - 1].rstrip() + "…"
+
+
+# ---------- estado ----------
+
+def leer_json(ruta, vacio):
+    try:
+        return json.loads(Path(ruta).read_text(encoding="utf-8"))
+    except Exception:
+        return vacio
+
+
+MAX_FALLOS = 3  # una pieza que falla 3 veces se deja (y el taller deja de dar error por ella)
+
+
+def ya(estado, canal, clave):
+    return (any(x["clave"] == clave for x in estado.get(canal, []))
+            or estado.get("fallos", {}).get(f"{canal}:{clave}", 0) >= MAX_FALLOS)
+
+
+def fallo(estado, canal, clave):
+    f = estado.setdefault("fallos", {})
+    f[f"{canal}:{clave}"] = f.get(f"{canal}:{clave}", 0) + 1
+
+
+def apuntar(estado, canal, clave, ahora, r, extra=None):
+    d = {"clave": clave, "fecha": ahora.date().isoformat(), "hora": ahora.strftime("%H:%M"),
+         "message_id": r["result"]["message_id"]}
+    d.update(extra or {})
+    estado.setdefault(canal, []).append(d)
+
+
+# ---------- modos ----------
+
+def comprobar():
+    if not TOKEN:
+        print("❌ Falta el secreto TELEGRAM_BOT_TOKEN en el repo.")
+        return 1
+    yo = api("getMe")
+    if not yo.get("ok"):
+        print("❌ El token no funciona:", yo.get("description"))
+        return 1
+    bot = yo["result"]
+    print(f"✅ Bot: @{bot.get('username')} ({bot.get('first_name')})")
+    fallo = 0
+    for canal in CANALES.values():
+        m = api("getChatMember", chat_id=canal, user_id=bot["id"])
+        if not m.get("ok"):
+            print(f"❌ {canal}: {m.get('description')}")
+            fallo = 1
+            continue
+        r = m["result"]
+        puede = r.get("status") == "creator" or (r.get("status") == "administrator" and r.get("can_post_messages", False))
+        print(f"{'✅' if puede else '❌'} {canal}: {r.get('status')}, puede publicar: {'sí' if puede else 'no'}")
+        fallo |= not puede
+    return fallo
+
+
+def publicar_videos(estado, canal, cola, ahora, crear_texto):
+    hoy, ahora_txt, errores = ahora.date().isoformat(), ahora.strftime("%H:%M"), 0
+    pendientes = sorted((p for p in cola.get("piezas", []) if p.get("fecha") == hoy and p.get("url")
+                         and p.get("hora", "99:99") <= ahora_txt and not ya(estado, canal, "video-" + p["id"])),
+                        key=lambda p: p["hora"])
+    for p in pendientes[:MAX_VIDEOS_POR_VEZ]:
+        texto = crear_texto(p)
+        r = api_archivo("sendVideo", "video", p["url"], chat_id=CANALES[canal], caption=texto, parse_mode="HTML",
+                        supports_streaming=True)
+        if r.get("ok"):
+            apuntar(estado, canal, "video-" + p["id"], ahora, r)
+            print(f"✅ {canal}: vídeo {p['id']}")
+        else:
+            errores += 1
+            fallo(estado, canal, "video-" + p["id"])
+            print(f"❌ {canal}: vídeo {p['id']}: {r.get('description')}")
+    return errores
+
+
+def publicar_ofertas(estado, ofertas, cola, ahora):
+    minuto = ahora.hour * 60 + ahora.minute
+    if not (INICIO_OFERTAS <= minuto <= FIN_OFERTAS):
+        print("Ofertas: fuera de horario (11:00-21:59).")
+        return 0
+    hoy = ahora.date().isoformat()
+    hace = (ahora.date() - datetime.timedelta(days=DIAS_SIN_REPETIR_ASIN)).isoformat()
+    asins_recientes = {x.get("asin") for x in estado.get("chollofino", []) if x.get("fecha", "") >= hace}
+    en_video = {p["numeros"][0] for p in cola.get("piezas", []) if p.get("fecha") == hoy and len(p.get("numeros", [])) == 1}
+    candidatas = [o for o in ofertas if not o.get("ejemplo") and str(o.get("fecha", ""))[:10] == hoy and asin(o)
+                  and o.get("precio") is not None and o.get("numero") not in en_video
+                  and asin(o) not in asins_recientes and not ya(estado, "chollofino", f"oferta-{hoy}-{o.get('numero')}")]
+    candidatas.sort(key=lambda o: -(o.get("numero") or 0))
+    turnos = max(1, (FIN_OFERTAS - minuto) // 30 + 1)
+    cuantas = min(MAX_OFERTAS_POR_VEZ, math.ceil(len(candidatas) / turnos)) if candidatas else 0
+    print(f"Ofertas: {len(candidatas)} por publicar hoy, {turnos} turnos, ahora {cuantas}")
+    errores = 0
+    for o in candidatas[:cuantas]:
+        foto = PINES.format(fecha=hoy, numero=o["numero"])
+        con_foto = es_imagen(foto)
+        if con_foto:  # el pie de foto admite 1024 caracteres: si no cabe, sin descripción
+            texto = texto_oferta(o)
+            if visible(texto) > 1024:
+                texto = texto_oferta(o, con_descripcion=False)
+            r = api_archivo("sendPhoto", "photo", foto, chat_id=CANALES["chollofino"], caption=texto, parse_mode="HTML")
+        else:  # sin pin: la vista previa de Amazon hace de foto
+            r = api("sendMessage", chat_id=CANALES["chollofino"], text=texto_oferta(o), parse_mode="HTML",
+                    link_preview_options={"url": con_tag(o["enlace"]), "prefer_large_media": True})
+        if r.get("ok"):
+            apuntar(estado, "chollofino", f"oferta-{hoy}-{o['numero']}", ahora, r, {"asin": asin(o)})
+            print(f"✅ chollofino: oferta Nº {o['numero']}{'' if con_foto else ' (sin foto de Fino)'}")
+        else:
+            errores += 1
+            fallo(estado, "chollofino", f"oferta-{hoy}-{o['numero']}")
+            print(f"❌ chollofino: oferta Nº {o['numero']}: {r.get('description')}")
+    return errores
+
+
+def publicar(carpeta, cola_pr_ruta=None):
+    if not TOKEN:
+        print("❌ Falta TELEGRAM_BOT_TOKEN: no se publica nada.")
+        return 1
+    ahora = datetime.datetime.now(ZONA)
+    carpeta = Path(carpeta)
+    estado = leer_json(carpeta / "publicado.json", {})
+    cola_cf = leer_json(carpeta / "cola.json", {"piezas": []})
+    cola_pr = leer_json(cola_pr_ruta, {"piezas": []}) if cola_pr_ruta else {"piezas": []}
+    ofertas = leer_datos((RAIZ / "index.html").read_text(encoding="utf-8"))["OFERTAS"]
+    por_numero = {o.get("numero"): o for o in ofertas if not o.get("ejemplo") and asin(o)}
+    print(f"Hora de Canarias: {ahora:%d/%m %H:%M}")
+
+    errores = publicar_videos(estado, "chollofino", cola_cf, ahora, lambda p: texto_video_cf(p, por_numero))
+    errores += publicar_videos(estado, "precioridiculo", cola_pr, ahora, texto_video_pr)
+    errores += publicar_ofertas(estado, ofertas, cola_cf, ahora)
+
+    limite = (ahora.date() - datetime.timedelta(days=30)).isoformat()
+    hoy = ahora.date().isoformat()
+    estado = {c: ([x for x in v if x.get("fecha", "") >= limite] if isinstance(v, list)
+                  else {k: n for k, n in v.items() if hoy in k}) for c, v in estado.items()}
+    (carpeta / "publicado.json").write_text(json.dumps(estado, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    return 1 if errores else 0
+
+
+if __name__ == "__main__":
+    modo = sys.argv[1] if len(sys.argv) > 1 else "comprobar"
+    if modo == "comprobar":
+        sys.exit(comprobar())
+    sys.exit(publicar(sys.argv[2] if len(sys.argv) > 2 else ".", sys.argv[3] if len(sys.argv) > 3 else None))

@@ -1,0 +1,77 @@
+# Canales de Telegram @chollofino y @precioridiculo: publica las ofertas de hoy de la web (con la foto de Fino)
+# y los vídeos que van a las redes. Script: _herramientas/telegram.py. Secreto: TELEGRAM_BOT_TOKEN.
+# Cola y registro en la rama «telegram» (cola.json lo escribe la tarea diaria de redes; publicado.json, este taller).
+name: Telegram · canales
+
+on:
+  schedule:
+    - cron: "5,35 8-22 * * *"   # cada media hora, 8:05-22:35 UTC (Canarias: igual en invierno, +1 h en verano)
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: "comprobar (no publica nada) o publicar"
+        type: choice
+        options: [comprobar, publicar]
+        default: comprobar
+
+permissions:
+  contents: write
+
+concurrency:
+  group: telegram
+  cancel-in-progress: false
+
+jobs:
+  telegram:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      MODO: ${{ github.event_name == 'workflow_dispatch' && inputs.modo || 'publicar' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Comprobar el bot y los canales
+        if: env.MODO == 'comprobar'
+        run: python3 _herramientas/telegram.py comprobar
+
+      - name: Rama telegram (cola y lo ya publicado)
+        if: env.MODO == 'publicar'
+        uses: actions/checkout@v4
+        with:
+          ref: telegram
+          path: estado
+          fetch-depth: 0
+
+      - name: Cola de Precio Ridículo
+        if: env.MODO == 'publicar'
+        run: git clone --depth 1 -b telegram https://github.com/8y86k46yvk-blip/Precioridiculo-.git pr || echo "Precio Ridículo aún no tiene cola"
+
+      - name: Publicar
+        id: publicar
+        if: env.MODO == 'publicar'
+        run: |
+          set +e
+          python3 _herramientas/telegram.py publicar estado pr/cola.json
+          echo "codigo=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Guardar lo publicado
+        if: env.MODO == 'publicar'
+        working-directory: estado
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add publicado.json
+          if git diff --cached --quiet; then echo "Nada nuevo"; exit 0; fi
+          git commit -q -m "Telegram $(date -u +%F' '%H:%M) UTC"
+          for i in 1 2 3; do
+            git pull -q --rebase origin telegram && git push -q origin HEAD:telegram && exit 0
+            sleep 5
+          done
+          exit 1
+
+      - name: Avisar si algo falló
+        if: env.MODO == 'publicar' && steps.publicar.outputs.codigo != '0'
+        run: |
+          echo "::error::Alguna publicación de Telegram falló: mira el paso «Publicar»"
+          exit 1

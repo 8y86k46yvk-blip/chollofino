@@ -564,8 +564,8 @@ const CALENDARIO_BF = [
 ];
 const fmtEuro = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" });
 // ID de seguimiento de Amazon según de dónde llega la visita (Amazon Afiliados → Gestionar mis ID de seguimiento).
-// chollofino.com/?d=ig (o chollofino.com/ig) → Instagram · ?d=fb → Facebook · ?d=tk → TikTok · ?d=pin → Pinterest · resto → chollofino-21
-const TAGS_ORIGEN = { ig: "chollofinoig-21", fb: "chollofinofb-21", tk: "chollofinotk-21", pin: "chollofinopin-21" };
+// chollofino.com/?d=ig (o chollofino.com/ig) → Instagram · ?d=fb → Facebook · ?d=tk → TikTok · ?d=pin → Pinterest · ?d=tg → Telegram · resto → chollofino-21
+const TAGS_ORIGEN = { ig: "chollofinoig-21", fb: "chollofinofb-21", tk: "chollofinotk-21", pin: "chollofinopin-21", tg: "chollofinotg-21" };
 const TAG_AMAZON = (function(){
   let d = "";
   try {
@@ -580,6 +580,7 @@ const TAG_AMAZON = (function(){
     else if (/FBAN|FBAV|FB_IAB|FBIOS/i.test(ua)) d = "fb";
     else if (/musical_ly|BytedanceWebview|TikTok/i.test(ua)) d = "tk";
     else if (/Pinterest/i.test(ua)) d = "pin";
+    else if (/Telegram/i.test(ua)) d = "tg";
   }
   return TAGS_ORIGEN[d] || "chollofino-21";
 })();
