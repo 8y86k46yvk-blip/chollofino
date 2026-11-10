@@ -558,8 +558,8 @@ const CALENDARIO_BF = [
 ];
 const fmtEuro = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" });
 // ID de seguimiento de Amazon según de dónde llega la visita (Amazon Afiliados → Gestionar mis ID de seguimiento).
-// chollofino.com/?d=ig (o chollofino.com/ig) → Instagram · ?d=fb → Facebook · ?d=tk → TikTok · resto → chollofino-21
-const TAGS_ORIGEN = { ig: "chollofinoig-21", fb: "chollofinofb-21", tk: "chollofinotk-21" };
+// chollofino.com/?d=ig (o chollofino.com/ig) → Instagram · ?d=fb → Facebook · ?d=tk → TikTok · ?d=pin → Pinterest · resto → chollofino-21
+const TAGS_ORIGEN = { ig: "chollofinoig-21", fb: "chollofinofb-21", tk: "chollofinotk-21", pin: "chollofinopin-21" };
 const TAG_AMAZON = (function(){
   let d = "";
   try {
@@ -573,6 +573,7 @@ const TAG_AMAZON = (function(){
     if (/Instagram/i.test(ua)) d = "ig";
     else if (/FBAN|FBAV|FB_IAB|FBIOS/i.test(ua)) d = "fb";
     else if (/musical_ly|BytedanceWebview|TikTok/i.test(ua)) d = "tk";
+    else if (/Pinterest/i.test(ua)) d = "pin";
   }
   return TAGS_ORIGEN[d] || "chollofino-21";
 })();
@@ -884,6 +885,7 @@ window.addEventListener("hashchange", ruta);
     } catch (err) { /* si la hoja falla, se quedan las ofertas de la lista */ }
   }
   ofertas.sort((a, b) => (b.numero || 0) - (a.numero || 0));
+  $("bf-amazon").href = conTag($("bf-amazon").href);
   relojBlackFriday(); setInterval(relojBlackFriday, 30000);
   pintarDatos(); pintarFiltros(); pintarLista(); ruta();
 })();
