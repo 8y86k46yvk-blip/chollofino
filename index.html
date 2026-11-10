@@ -449,7 +449,34 @@ const POSES = ["fino-4-pulgar-guino", "fino-2-sorpresa", "fino-3-senala", "fino-
 const BLACK_FRIDAY = new Date("2026-11-27T00:00:00+01:00");
 const FIN_BLACK_FRIDAY = new Date("2026-12-01T00:00:00+01:00");
 const fmtEuro = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" });
-const TAG_AMAZON = "chollofino-21";
+// ID de seguimiento de Amazon según de dónde llega la visita (Amazon Afiliados → Gestionar mis ID de seguimiento).
+// chollofino.com/?d=ig (o chollofino.com/ig) → Instagram · ?d=fb → Facebook · ?d=tk → TikTok · resto → chollofino-21
+const TAGS_ORIGEN = { ig: "chollofinoig-21", fb: "chollofinofb-21", tk: "chollofinotk-21" };
+const TAG_AMAZON = (function(){
+  let d = "";
+  try {
+    const p = new URLSearchParams(location.search);
+    d = (p.get("d") || "").toLowerCase();
+    if (p.has("d")) { p.delete("d"); const q = p.toString(); history.replaceState(null, "", location.pathname + (q ? "?" + q : "") + location.hash); }
+  } catch (e) {}
+  if (!TAGS_ORIGEN[d]) {
+    // Navegador integrado de cada app (si alguien toca el enlace dentro de la app)
+    const ua = navigator.userAgent || "";
+    if (/Instagram/i.test(ua)) d = "ig";
+    else if (/FBAN|FBAV|FB_IAB|FBIOS/i.test(ua)) d = "fb";
+    else if (/musical_ly|BytedanceWebview|TikTok/i.test(ua)) d = "tk";
+  }
+  return TAGS_ORIGEN[d] || "chollofino-21";
+})();
+function conTag(u){
+  // Pone el ID de seguimiento de esta visita en los enlaces de amazon.es (los amzn.to se quedan como están)
+  try {
+    const url = new URL(u);
+    if (!/(^|\.)amazon\.es$/i.test(url.hostname)) return u;
+    url.searchParams.set("tag", TAG_AMAZON);
+    return url.toString();
+  } catch (e) { return u; }
+}
 function urlBusquedaAmazon(q){ return "https://www.amazon.es/s?k=" + encodeURIComponent(q) + "&tag=" + TAG_AMAZON; }
 let ofertas = [];
 let categoria = "Todo";
@@ -499,7 +526,7 @@ function cartel(o, i, etiqueta, poseFija){
 }
 function iconoFlecha(){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>'; }
 function boton(o){
-  const href = urlSegura(o.enlace);
+  const href = conTag(urlSegura(o.enlace));
   return href
     ? '<a class="boton" href="' + esc(href) + '" target="_blank" rel="sponsored nofollow noopener">' + esc(CONFIG.textoBoton) + iconoFlecha() + '</a>'
     : '<span class="boton pendiente">Enlace pendiente</span>';
