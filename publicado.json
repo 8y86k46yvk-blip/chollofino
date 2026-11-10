@@ -53,6 +53,20 @@
    "hora": "18:47",
    "message_id": 19,
    "asin": "B0GS8YKMN3"
+  },
+  {
+   "clave": "oferta-2026-11-10-18",
+   "fecha": "2026-11-10",
+   "hora": "19:26",
+   "message_id": 20,
+   "asin": "B0F8472SB6"
+  },
+  {
+   "clave": "oferta-2026-11-10-17",
+   "fecha": "2026-11-10",
+   "hora": "19:26",
+   "message_id": 21,
+   "asin": "B0CX9CT3ZF"
   }
  ],
  "precioridiculo": [
@@ -67,6 +81,33 @@
    "fecha": "2026-11-10",
    "hora": "17:55",
    "message_id": 13
+  },
+  {
+   "clave": "video-2026-11-10-pr-preparar-black-friday",
+   "fecha": "2026-11-10",
+   "hora": "19:26",
+   "message_id": 14
+  },
+  {
+   "clave": "oferta-2026-11-10-20",
+   "fecha": "2026-11-10",
+   "hora": "19:26",
+   "message_id": 15,
+   "producto_id": "1005013478340811"
+  },
+  {
+   "clave": "oferta-2026-11-10-19",
+   "fecha": "2026-11-10",
+   "hora": "19:26",
+   "message_id": 16,
+   "producto_id": "1005011748652232"
+  },
+  {
+   "clave": "oferta-2026-11-10-18",
+   "fecha": "2026-11-10",
+   "hora": "19:26",
+   "message_id": 17,
+   "producto_id": "1005012452638230"
   }
  ]
 }
