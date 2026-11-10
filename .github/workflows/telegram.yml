@@ -1,4 +1,4 @@
-# Canales de Telegram @chollofino y @precioridiculo: publica las ofertas de hoy de la web (con la foto de Fino)
+# Canales de Telegram @chollofino y @precioridiculo: publica las ofertas de hoy de cada web (con la foto de Fino o de Ridi)
 # y los vídeos que van a las redes. Script: _herramientas/telegram.py. Secreto: TELEGRAM_BOT_TOKEN.
 # Cola y registro en la rama «telegram» (cola.json lo escribe la tarea diaria de redes; publicado.json, este taller).
 name: Telegram · canales
@@ -45,14 +45,16 @@ jobs:
 
       - name: Cola de Precio Ridículo
         if: env.MODO == 'publicar'
-        run: git clone --depth 1 -b telegram https://github.com/8y86k46yvk-blip/Precioridiculo-.git pr || echo "Precio Ridículo aún no tiene cola"
+        run: |
+          git clone --depth 1 -b telegram https://github.com/8y86k46yvk-blip/Precioridiculo-.git pr || echo "Precio Ridículo aún no tiene cola"
+          git clone --depth 1 https://github.com/8y86k46yvk-blip/Precioridiculo-.git pr-web || echo "No se pudo leer la web de Precio Ridículo"
 
       - name: Publicar
         id: publicar
         if: env.MODO == 'publicar'
         run: |
           set +e
-          python3 _herramientas/telegram.py publicar estado pr/cola.json
+          python3 _herramientas/telegram.py publicar estado pr/cola.json pr-web/index.html
           echo "codigo=$?" >> "$GITHUB_OUTPUT"
 
       - name: Guardar lo publicado

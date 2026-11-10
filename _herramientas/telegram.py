@@ -7,13 +7,15 @@ entorno TELEGRAM_BOT_TOKEN (secreto del repo chollofino). Desde la raíz del rep
   python3 _herramientas/telegram.py comprobar
       Dice si el bot existe y si puede publicar en los dos canales. No publica nada.
 
-  python3 _herramientas/telegram.py publicar CARPETA [COLA_PR]
+  python3 _herramientas/telegram.py publicar CARPETA [COLA_PR] [WEB_PR]
       CARPETA es la rama «telegram» de este repo: cola.json (vídeos de Chollo Fino que apunta la tarea diaria de
       redes) y publicado.json (lo ya publicado, lo escribe este script). COLA_PR es cola.json de la rama «telegram»
       del repo Precioridiculo- (vídeos de Precio Ridículo).
 
 Qué se publica:
   · Vídeos de la cola (los mismos que van a las redes), a su hora o en cuanto pase, solo los del día.
+  · @precioridiculo: cada oferta de hoy de elprecioridiculo.com (AliExpress con precio ≈ y Hacoo), con su pin de Ridi
+    o la foto de la tienda y el enlace de Admitad con subid=tg; WEB_PR es index.html de esa web (rama main).
   · @chollofino: además, cada oferta de hoy de la web (OFERTAS de index.html) con su foto de Fino (el pin de
     public/chollofino/pines/AAAA-MM-DD-cf-pines/n<numero>.jpg) y el enlace con el ID chollofinotg-21, repartidas
     de 11:00 a 21:59 (hora de Canarias). Una oferta que ya sale sola en un vídeo «chollo» de hoy no se repite, y un
@@ -45,6 +47,7 @@ from paginas import RAIZ, leer_datos, euros, dto  # noqa: E402
 CANALES = {"chollofino": "@chollofino", "precioridiculo": "@precioridiculo"}
 TAG = "chollofinotg-21"
 PINES = "https://shorts.todo-picks-academy.pages.dev/chollofino/pines/{fecha}-cf-pines/n{numero}.jpg"
+PINES_PR = "https://shorts.todo-picks-academy.pages.dev/precioridiculo/pines/{fecha}-pr-pines/n{numero}.jpg"
 INICIO_OFERTAS, FIN_OFERTAS = 11 * 60, 21 * 60 + 59   # minutos del día, hora de Canarias
 MAX_OFERTAS_POR_VEZ = 3
 ESPERAR_FOTO_HASTA = 13 * 60  # si el pin aún no está, la oferta espera; desde las 13:00 sale sin él
@@ -147,11 +150,41 @@ def asin(o):
 
 
 def precio_linea(o):
-    d = dto(o)
-    t = f"💶 <b>{E(euros(o['precio']))}</b>"
+    d, a = dto(o), ("≈" if o.get("aprox") else "")
+    t = f"💶 <b>{a}{E(euros(o['precio']))}</b>"
     if o.get("antes") and d:
-        t += f"   <s>{E(euros(o['antes']))}</s>   −{d} %"
+        t += f"   <s>{a}{E(euros(o['antes']))}</s>   −{d} %"
     return t
+
+
+def con_subid(enlace, subid="tg"):
+    """Enlaces de Admitad: subid dice en el informe de Admitad de dónde vino la venta (web, tg…)."""
+    u = urllib.parse.urlsplit(enlace)
+    q = [(k, v) for k, v in urllib.parse.parse_qsl(u.query, keep_blank_values=True) if k != "subid"] + [("subid", subid)]
+    return urllib.parse.urlunsplit((u.scheme, u.netloc, u.path, urllib.parse.urlencode(q), ""))
+
+
+def tienda(o):
+    return str(o.get("tienda") or "la tienda").strip()
+
+
+def pie_pr(fecha, aprox, con_publi=True, nombre_tienda="la tienda"):
+    f = datetime.date.fromisoformat(fecha)
+    t = "🛍️ <a href=\"https://elprecioridiculo.com\">Más chollos en elprecioridiculo.com</a>"
+    if con_publi:
+        nota = (f"Precio aproximado del {f.day}/{f.month} (pasado de dólares); el final, en {E(nombre_tienda)}."
+                if aprox else f"Precio del {f.day}/{f.month}, puede cambiar.")
+        t += f"\n<i>#publi · Enlace de afiliado. {nota}</i>"
+    return t
+
+
+def texto_oferta_pr(o, con_descripcion=True):
+    partes = [f"🔥 <b>{E(o['producto'])}</b>", "", precio_linea(o)]
+    if con_descripcion and o.get("descripcion"):
+        partes.append(E(o["descripcion"]))
+    partes += ["", f"👉 <a href=\"{E(con_subid(o['enlace']))}\">Ver en {E(tienda(o))}</a>", "",
+               f"Nº {E(o['numero'])} en la web", pie_pr(o["fecha"][:10], o.get("aprox"), True, tienda(o))]
+    return "\n".join(partes)
 
 
 def pie_cf(fecha):
@@ -185,10 +218,18 @@ def texto_video_cf(p, por_numero):
     return "\n".join(partes)
 
 
-def texto_video_pr(p):
+def texto_video_pr(p, por_numero=None):
+    productos = [por_numero[n] for n in p.get("numeros", []) if por_numero and n in por_numero]
     partes = [f"🎬 <b>{E(corto(p.get('titulo'), 120) or 'Precio Ridículo')}</b>"]
     if p.get("texto"):
         partes += ["", E(corto(p["texto"], 600))]
+    if productos:
+        for o in productos:
+            partes += ["", f"🔥 <b>{E(o['producto'])}</b>", precio_linea(o),
+                       f"👉 <a href=\"{E(con_subid(o['enlace']))}\">Ver en {E(tienda(o))}</a> · Nº {E(o['numero'])}"]
+        o = productos[0]
+        partes += ["", pie_pr(p["fecha"], any(x.get("aprox") for x in productos), True, tienda(o))]
+        return "\n".join(partes)
     if p.get("enlace"):
         partes += ["", f"👉 <a href=\"{E(p['enlace'])}\">Ver en Hacoo</a>"]
     partes += ["", "🛍️ <a href=\"https://elprecioridiculo.com\">Más en elprecioridiculo.com</a>"]
@@ -322,7 +363,48 @@ def publicar_ofertas(estado, ofertas, cola, ahora):
     return errores
 
 
-def publicar(carpeta, cola_pr_ruta=None):
+def publicar_ofertas_pr(estado, ofertas, cola, ahora):
+    """Ofertas de hoy de elprecioridiculo.com en @precioridiculo, con su pin de Ridi o la foto de la tienda."""
+    minuto = ahora.hour * 60 + ahora.minute
+    if not (INICIO_OFERTAS <= minuto <= FIN_OFERTAS):
+        return 0
+    hoy = ahora.date().isoformat()
+    hace = (ahora.date() - datetime.timedelta(days=DIAS_SIN_REPETIR_ASIN)).isoformat()
+    recientes = {x.get("producto_id") for x in estado.get("precioridiculo", []) if x.get("fecha", "") >= hace}
+    en_video = {n for p in cola.get("piezas", []) if p.get("fecha") == hoy for n in p.get("numeros", [])[:1]
+                if len(p.get("numeros", [])) == 1}
+    pid = lambda o: str(o.get("ali_id") or o.get("enlace") or o.get("numero"))  # noqa: E731
+    candidatas = [o for o in ofertas if not o.get("ejemplo") and str(o.get("fecha", ""))[:10] == hoy
+                  and str(o.get("enlace", "")).startswith("https://") and o.get("precio") is not None
+                  and o.get("numero") not in en_video and pid(o) not in recientes
+                  and not ya(estado, "precioridiculo", f"oferta-{hoy}-{o.get('numero')}")]
+    candidatas.sort(key=lambda o: -(o.get("numero") or 0))
+    turnos = max(1, (FIN_OFERTAS - minuto) // 30 + 1)
+    cuantas = min(MAX_OFERTAS_POR_VEZ, math.ceil(len(candidatas) / turnos)) if candidatas else 0
+    print(f"Ofertas Precio Ridículo: {len(candidatas)} por publicar hoy, {turnos} turnos, ahora {cuantas}")
+    errores = 0
+    for o in candidatas[:cuantas]:
+        pin = PINES_PR.format(fecha=hoy, numero=o["numero"])
+        foto = pin if es_imagen(pin, contar=True) else (o.get("imagen") if str(o.get("imagen", "")).startswith("https://") else "")
+        texto = texto_oferta_pr(o)
+        if foto:
+            if visible(texto) > 1024:
+                texto = texto_oferta_pr(o, con_descripcion=False)
+            r = api_archivo("sendPhoto", "photo", foto, chat_id=CANALES["precioridiculo"], caption=texto, parse_mode="HTML")
+        else:
+            r = api("sendMessage", chat_id=CANALES["precioridiculo"], text=texto, parse_mode="HTML",
+                    link_preview_options={"is_disabled": True})
+        if r.get("ok"):
+            apuntar(estado, "precioridiculo", f"oferta-{hoy}-{o['numero']}", ahora, r, {"producto_id": pid(o)})
+            print(f"✅ precioridiculo: oferta Nº {o['numero']}{'' if foto else ' (sin foto)'}")
+        else:
+            errores += 1
+            fallo(estado, "precioridiculo", f"oferta-{hoy}-{o['numero']}")
+            print(f"❌ precioridiculo: oferta Nº {o['numero']}: {r.get('description')}")
+    return errores
+
+
+def publicar(carpeta, cola_pr_ruta=None, web_pr_ruta=None):
     if not TOKEN:
         print("❌ Falta TELEGRAM_BOT_TOKEN: no se publica nada.")
         return 1
@@ -333,11 +415,19 @@ def publicar(carpeta, cola_pr_ruta=None):
     cola_pr = leer_json(cola_pr_ruta, {"piezas": []}) if cola_pr_ruta else {"piezas": []}
     ofertas = leer_datos((RAIZ / "index.html").read_text(encoding="utf-8"))["OFERTAS"]
     por_numero = {o.get("numero"): o for o in ofertas if not o.get("ejemplo") and asin(o)}
+    ofertas_pr = []
+    if web_pr_ruta and Path(web_pr_ruta).exists():
+        try:
+            ofertas_pr = leer_datos(Path(web_pr_ruta).read_text(encoding="utf-8"))["OFERTAS"]
+        except Exception as e:
+            print("No pude leer las ofertas de Precio Ridículo:", type(e).__name__)
+    por_numero_pr = {o.get("numero"): o for o in ofertas_pr if not o.get("ejemplo") and o.get("enlace")}
     print(f"Hora de Canarias: {ahora:%d/%m %H:%M}")
 
     errores = publicar_videos(estado, "chollofino", cola_cf, ahora, lambda p: texto_video_cf(p, por_numero))
-    errores += publicar_videos(estado, "precioridiculo", cola_pr, ahora, texto_video_pr)
+    errores += publicar_videos(estado, "precioridiculo", cola_pr, ahora, lambda p: texto_video_pr(p, por_numero_pr))
     errores += publicar_ofertas(estado, ofertas, cola_cf, ahora)
+    errores += publicar_ofertas_pr(estado, ofertas_pr, cola_pr, ahora)
 
     limite = (ahora.date() - datetime.timedelta(days=30)).isoformat()
     hoy = ahora.date().isoformat()
@@ -351,4 +441,5 @@ if __name__ == "__main__":
     modo = sys.argv[1] if len(sys.argv) > 1 else "comprobar"
     if modo == "comprobar":
         sys.exit(comprobar())
-    sys.exit(publicar(sys.argv[2] if len(sys.argv) > 2 else ".", sys.argv[3] if len(sys.argv) > 3 else None))
+    sys.exit(publicar(sys.argv[2] if len(sys.argv) > 2 else ".", sys.argv[3] if len(sys.argv) > 3 else None,
+                      sys.argv[4] if len(sys.argv) > 4 else None))
