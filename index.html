@@ -197,6 +197,20 @@ button{font:inherit}
 .vacio img{height:120px;width:auto}
 @media (max-width:420px){.cuerpo{padding:10px 11px 12px}.cuerpo h3{font-size:14.5px}.precio{font-size:21px}.boton{font-size:14px;min-height:44px;padding:0 8px}.boton svg{width:15px;height:15px}.cartel .grande{left:10px}}
 
+/* ---------- Buscar en Amazon ---------- */
+.buscar-amazon{position:relative;display:grid;grid-template-columns:1fr;gap:6px;background:var(--crema);border:1px solid var(--linea);border-radius:24px;padding:22px 20px 20px;margin:10px 0 6px;overflow:hidden}
+.buscar-amazon h2{margin:0;font-size:clamp(22px,4.4vw,30px);font-weight:900;letter-spacing:-0.03em;line-height:1.1;padding-right:96px}
+.buscar-amazon p{margin:4px 0 12px;color:var(--gris);font-size:15px;padding-right:96px}
+.buscar-amazon img{position:absolute;right:10px;top:10px;height:118px;width:auto}
+.buscar-amazon form{display:flex;flex-wrap:wrap;gap:10px}
+.buscar-amazon input{flex:1 1 220px;font:inherit;font-size:17px;padding:14px 16px;border:1.5px solid var(--linea);border-radius:14px;background:var(--blanco);color:var(--tinta);min-height:52px}
+.buscar-amazon button{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-weight:800;font-size:16px;min-height:52px;padding:0 20px;border:0;border-radius:14px;background:var(--verde);color:var(--crema);cursor:pointer}
+.buscar-amazon button:hover{background:var(--verde-2)}
+.buscar-amazon button svg{width:18px;height:18px}
+.buscar-amazon .nota{margin-top:8px}
+@media (min-width:760px){.buscar-amazon{padding:30px 34px}.buscar-amazon img{height:150px;right:24px;top:14px}.buscar-amazon h2,.buscar-amazon p{padding-right:160px}}
+.vacio .boton{margin-top:8px;min-width:220px}
+
 /* ---------- Cómo funciona ---------- */
 .como{background:var(--crema);margin-top:30px;padding:40px 0 44px}
 .pasos{display:grid;grid-template-columns:1fr;gap:14px;counter-reset:paso}
@@ -317,6 +331,17 @@ button{font:inherit}
           </div>
         </div>
         <div class="rejilla" id="rejilla"></div>
+        <section class="buscar-amazon" aria-labelledby="titulo-buscar-amazon">
+          <img src="assets/web/fino-6-piensa.webp" alt="" loading="lazy" width="211" height="400">
+          <h2 id="titulo-buscar-amazon">¿No encuentras lo que buscas?</h2>
+          <p>Búscalo en Amazon desde aquí. Pagas lo mismo y ayudas a que Chollo Fino siga buscando chollos.</p>
+          <form id="form-amazon" role="search">
+            <label class="oculto" for="q-amazon">Buscar en Amazon</label>
+            <input id="q-amazon" type="search" placeholder="Ej.: freidora de aire" autocomplete="off" enterkeyhint="search">
+            <button type="submit">Buscar en Amazon<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></button>
+          </form>
+          <p class="nota">Enlace de afiliado: si compras, Chollo Fino recibe una pequeña comisión de Amazon.</p>
+        </section>
       </section>
     </div>
 
@@ -422,6 +447,8 @@ const POSES = ["fino-4-pulgar-guino", "fino-2-sorpresa", "fino-3-senala", "fino-
 const BLACK_FRIDAY = new Date("2026-11-27T00:00:00+01:00");
 const FIN_BLACK_FRIDAY = new Date("2026-12-01T00:00:00+01:00");
 const fmtEuro = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" });
+const TAG_AMAZON = "chollofino-21";
+function urlBusquedaAmazon(q){ return "https://www.amazon.es/s?k=" + encodeURIComponent(q) + "&tag=" + TAG_AMAZON; }
 let ofertas = [];
 let categoria = "Todo";
 let busqueda = "";
@@ -557,7 +584,8 @@ function pintarLista(){
   $("estado").textContent = lista.length === 1 ? "1 oferta" : lista.length + " ofertas";
   $("rejilla").innerHTML = lista.length
     ? lista.map(tarjeta).join("")
-    : '<div class="vacio"><img src="assets/web/fino-6-piensa.webp" alt="" width="211" height="400"><strong>Ninguna oferta coincide.</strong><span>Prueba con otro número o con otra palabra.</span></div>';
+    : '<div class="vacio"><img src="assets/web/fino-6-piensa.webp" alt="" width="211" height="400"><strong>Ninguna oferta coincide.</strong><span>Prueba con otro número o con otra palabra.</span>' +
+      (busqueda.trim() && !/^[#nº°o.\s]*\d+$/i.test(busqueda.trim()) ? '<a class="boton" href="' + esc(urlBusquedaAmazon(busqueda.trim())) + '" target="_blank" rel="sponsored nofollow noopener">Buscar «' + esc(busqueda.trim()) + '» en Amazon' + iconoFlecha() + '</a>' : "") + '</div>';
   pintarDestacado();
 }
 function pintarFicha(o){
@@ -644,6 +672,12 @@ $("ir-buscar").addEventListener("click", e => {
   e.preventDefault();
   if ($("vista-lista").hidden) location.hash = "#chollos";
   setTimeout(() => { $("buscar").scrollIntoView({ block: "center" }); $("buscar").focus(); }, 60);
+});
+$("form-amazon").addEventListener("submit", e => {
+  e.preventDefault();
+  const q = $("q-amazon").value.trim();
+  if (!q) { $("q-amazon").focus(); return; }
+  window.open(urlBusquedaAmazon(q), "_blank", "noopener");
 });
 window.addEventListener("hashchange", ruta);
 
