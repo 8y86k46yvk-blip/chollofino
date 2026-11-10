@@ -55,10 +55,53 @@ button{font:inherit}
 .oculto{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* ---------- Barra de cuenta atrás ---------- */
-.barra-bf{background:var(--verde-3);color:var(--crema);font-size:13px;font-weight:600}
-.barra-bf .wrap{display:flex;align-items:center;justify-content:center;gap:10px;min-height:38px;flex-wrap:wrap;text-align:center}
-.barra-bf .bf{background:var(--crema);color:var(--verde-3);font-weight:900;letter-spacing:.04em;padding:2px 8px;border-radius:6px;font-size:12px}
+[hidden]{display:none!important}
+.barra-bf{display:block;background:#0B0F0D;color:var(--crema);font-size:13px;font-weight:600;text-decoration:none}
+.barra-bf .wrap{display:flex;align-items:center;justify-content:center;gap:4px 10px;min-height:38px;flex-wrap:wrap;text-align:center;padding-top:4px;padding-bottom:4px}
+.barra-bf .bf{background:var(--coral);color:#fff;font-weight:900;letter-spacing:.04em;padding:2px 8px;border-radius:6px;font-size:12px}
 .barra-bf .reloj{font-variant-numeric:tabular-nums;color:var(--menta);font-weight:800}
+.barra-bf .ver{color:var(--coral-2);font-weight:800;text-decoration:underline;text-underline-offset:3px}
+.barra-bf:hover .ver{color:#fff}
+
+/* ---------- Especial Black Friday ---------- */
+.bf-banner{position:relative;display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 14px;margin-top:22px;padding:18px 18px 18px 20px;border-radius:24px;background:#0B0F0D;color:var(--crema);text-decoration:none;overflow:hidden;isolation:isolate;box-shadow:var(--sombra)}
+.bf-banner::before{content:"";position:absolute;right:-60px;top:-90px;width:260px;height:260px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,90,60,.45),transparent);z-index:-1}
+.bf-banner .bf-sello{grid-column:1/-1;justify-self:start}
+.bf-banner strong{display:block;font-size:clamp(22px,4.6vw,30px);font-weight:900;letter-spacing:-0.035em;line-height:1.05}
+.bf-banner .sub{display:block;color:#C9D3CE;font-size:14.5px;margin-top:4px}
+.bf-banner .flecha{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--coral);color:#fff;font-size:22px;font-weight:900;transition:transform .2s}
+.bf-banner:hover .flecha{transform:translateX(4px)}
+.bf-sello{display:inline-flex;align-items:center;gap:6px;background:var(--coral);color:#fff;font-weight:900;letter-spacing:.06em;font-size:12px;padding:4px 10px;border-radius:8px;text-transform:uppercase}
+.bf-portada{position:relative;background:#0B0F0D;color:var(--crema);overflow:hidden;isolation:isolate}
+.bf-portada::before{content:"";position:absolute;inset:-30% -20% auto auto;width:80vmax;height:80vmax;background:radial-gradient(closest-side,rgba(255,90,60,.30),rgba(255,90,60,0));z-index:-1}
+.bf-portada::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(244,241,232,.06) 1.2px,transparent 1.3px);background-size:22px 22px;z-index:-1;mask-image:linear-gradient(180deg,#000 40%,transparent)}
+.bf-portada .wrap{display:grid;grid-template-columns:1fr;gap:6px;padding-top:14px;padding-bottom:34px;align-items:center}
+.bf-portada .volver{color:var(--menta)}
+.bf-portada h1{font-weight:900;font-size:clamp(36px,9vw,68px);line-height:.98;letter-spacing:-0.05em;margin:14px 0 12px;text-wrap:balance;max-width:14ch}
+.bf-portada h1 em{font-style:normal;color:var(--coral)}
+.bf-portada .lema{margin:0 0 18px;font-size:17px;max-width:48ch;color:#C9D3CE}
+.bf-fase{margin:0 0 10px;font-weight:800;font-size:16px;color:var(--crema)}
+.bf-reloj{display:flex;gap:10px;margin-bottom:20px}
+.bf-reloj span{display:flex;flex-direction:column;align-items:center;min-width:78px;padding:10px 8px 8px;border-radius:16px;background:rgba(244,241,232,.07);border:1px solid rgba(244,241,232,.16)}
+.bf-reloj b{font-size:clamp(34px,8vw,48px);font-weight:900;letter-spacing:-0.04em;line-height:1;font-variant-numeric:tabular-nums;color:#fff}
+.bf-reloj small{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--coral-2);margin-top:6px}
+.bf-calendario{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.bf-calendario li{display:flex;flex-direction:column;gap:1px;padding:8px 12px;border-radius:12px;border:1px solid rgba(244,241,232,.16);font-size:13px;color:#C9D3CE;min-width:120px}
+.bf-calendario li b{color:var(--crema);font-size:14.5px}
+.bf-calendario li.hoy{background:var(--coral);border-color:var(--coral);color:#fff}
+.bf-calendario li.hoy b{color:#fff}
+.bf-calendario li.pasado{opacity:.55}
+.bf-portada .escena{min-height:220px}
+.bf-portada .escena .fino-grande{height:220px}
+@media (min-width:860px){.bf-portada .wrap{grid-template-columns:1.3fr .7fr;padding-top:22px;padding-bottom:56px}.bf-portada .escena{min-height:380px}.bf-portada .escena .fino-grande{height:360px}}
+.consejos{display:grid;grid-template-columns:1fr;gap:12px;padding-bottom:6px}
+@media (min-width:760px){.consejos{grid-template-columns:repeat(2,1fr);gap:16px}}
+.consejo{background:var(--blanco);border:1px solid var(--linea);border-radius:20px;padding:18px 18px 16px;box-shadow:var(--sombra)}
+.consejo h3{margin:0 0 4px;font-size:17px;letter-spacing:-0.02em}
+.consejo p{margin:0;color:var(--gris);font-size:15px}
+.bf-final{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;padding:30px 0 44px}
+.bf-final .boton{min-width:260px;font-size:16px;min-height:54px;background:#0B0F0D}
+.bf-final .boton:hover{background:#26302B}
 
 /* ---------- Cabecera ---------- */
 .cabecera{position:sticky;top:0;z-index:20;background:rgba(15,61,46,.94);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);color:var(--crema);border-bottom:1px solid rgba(126,226,168,.15)}
@@ -261,9 +304,9 @@ button{font:inherit}
 </style>
 </head>
 <body>
-<div class="barra-bf" id="barra-bf" hidden>
-  <div class="wrap"><span class="bf">BLACK FRIDAY</span><span id="texto-bf">Faltan</span><span class="reloj" id="reloj-bf"></span></div>
-</div>
+<a class="barra-bf" id="barra-bf" href="#black-friday" hidden>
+  <span class="wrap"><span class="bf">BLACK FRIDAY</span><span id="texto-bf">Faltan</span><span class="reloj" id="reloj-bf"></span><span class="ver">Ver chollos →</span></span>
+</a>
 <header class="cabecera">
   <div class="wrap">
     <a class="logo" href="#chollos" aria-label="Chollo Fino, ir a los chollos">
@@ -309,6 +352,11 @@ button{font:inherit}
     </div>
 
     <div class="wrap">
+      <a class="bf-banner" id="bf-banner" href="#black-friday" hidden>
+        <span class="bf-sello">Black Friday 2026</span>
+        <span><strong>Especial Black Friday</strong><span class="sub" id="bf-banner-sub">Lo mejor de cada categoría en una página</span></span>
+        <span class="flecha" aria-hidden="true">→</span>
+      </a>
       <section class="seccion" id="bloque-destacado" aria-labelledby="titulo-destacado" hidden>
         <div class="titulo-seccion"><div><h2 id="titulo-destacado">El chollazo del momento</h2><p>El mayor descuento de la lista ahora mismo.</p></div></div>
         <div id="destacado"></div>
@@ -376,6 +424,53 @@ button{font:inherit}
 
   <section id="vista-ficha" class="ficha" hidden>
     <div class="wrap" id="ficha"></div>
+  </section>
+
+  <section id="vista-bf" hidden>
+    <div class="bf-portada">
+      <div class="wrap">
+        <div>
+          <a class="volver" href="#chollos">← Todos los chollos</a><br>
+          <span class="bf-sello">Black Friday 2026</span>
+          <h1>Lo mejor del <em>Black Friday</em> en Amazon</h1>
+          <p class="lema">La Semana de Black Friday de Amazon va del jueves 19 al lunes 30 de noviembre. Fino deja aquí lo mejor de cada categoría, con descuento real.</p>
+          <p class="bf-fase" id="bf-fase"></p>
+          <div class="bf-reloj" id="bf-reloj"></div>
+          <ol class="bf-calendario" id="bf-calendario" aria-label="Fechas clave"></ol>
+        </div>
+        <div class="escena" aria-hidden="true">
+          <span class="suelo"></span>
+          <img class="fino-grande" src="assets/web/fino-5-celebra.webp" alt="" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div class="wrap">
+      <section class="seccion" id="bf-sec-categorias" aria-labelledby="titulo-bf-cat">
+        <div class="titulo-seccion"><div><h2 id="titulo-bf-cat">Lo mejor de cada categoría</h2><p>El mayor descuento de cada sección ahora mismo.</p></div></div>
+        <div class="rejilla" id="bf-categorias"></div>
+      </section>
+      <section class="seccion" id="bf-sec-descuentos" aria-labelledby="titulo-bf-dto">
+        <div class="titulo-seccion"><div><h2 id="titulo-bf-dto">Los mayores descuentos</h2><p>Más rebajas de la lista, de mayor a menor.</p></div></div>
+        <div class="rejilla" id="bf-descuentos"></div>
+      </section>
+      <section class="seccion" id="bf-sec-baratos" aria-labelledby="titulo-bf-bar">
+        <div class="titulo-seccion"><div><h2 id="titulo-bf-bar">Detalles por menos de 20 €</h2><p>Para regalar o darte un capricho sin gastar mucho.</p></div></div>
+        <div class="rejilla" id="bf-baratos"></div>
+      </section>
+      <section class="seccion" aria-labelledby="titulo-bf-consejos">
+        <div class="titulo-seccion"><div><h2 id="titulo-bf-consejos">Antes de comprar, Fino te avisa</h2><p>Cuatro trucos para que el chollo lo sea de verdad.</p></div></div>
+        <div class="consejos">
+          <article class="consejo"><h3>Mira el precio de las últimas semanas</h3><p>El precio tachado no siempre es el de antes. Si puedes, compáralo con lo que costaba hace un mes.</p></article>
+          <article class="consejo"><h3>Si no lo necesitas, no es chollo</h3><p>Haz tu lista antes del Black Friday y no compres solo porque hay una cuenta atrás.</p></article>
+          <article class="consejo"><h3>Fíjate en quién lo vende</h3><p>En la página de Amazon pone quién vende y quién envía el producto. Míralo antes de pagar.</p></article>
+          <article class="consejo"><h3>Lee las opiniones recientes</h3><p>Las de los últimos meses dicen más que la nota media. Busca fotos de otros compradores.</p></article>
+        </div>
+      </section>
+      <div class="bf-final">
+        <a class="boton" id="bf-amazon" href="https://www.amazon.es/deals?tag=chollofino-21" target="_blank" rel="sponsored nofollow noopener">Ver todas las ofertas en Amazon<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></a>
+        <p class="nota">Enlaces de afiliado: si compras, Chollo Fino recibe una pequeña comisión de Amazon. Precios a la fecha de cada oferta; pueden cambiar.</p>
+      </div>
+    </div>
   </section>
 </main>
 
@@ -445,9 +540,18 @@ const RANGOS = [
   { id: "mas", texto: "Más de 150 €", min: 150, max: Infinity }
 ];
 const POSES = ["fino-4-pulgar-guino", "fino-2-sorpresa", "fino-3-senala", "fino-6-piensa", "fino-1-saludo", "fino-0-base"];
-// Black Friday 2026: viernes 27 de noviembre (hora peninsular). La barra se oculta sola el 1 de diciembre.
+// Semana de Black Friday de Amazon 2026 (anunciada el 10/11/2026): del jueves 19 al lunes 30 de noviembre a las 23:59,
+// hora peninsular. Black Friday: viernes 27. Cyber Monday: lunes 30. La barra y el aviso se ocultan solos el 1 de diciembre.
+const SEMANA_BF = new Date("2026-11-19T00:00:00+01:00");
 const BLACK_FRIDAY = new Date("2026-11-27T00:00:00+01:00");
+const SABADO_BF = new Date("2026-11-28T00:00:00+01:00");
+const CYBER_MONDAY = new Date("2026-11-30T00:00:00+01:00");
 const FIN_BLACK_FRIDAY = new Date("2026-12-01T00:00:00+01:00");
+const CALENDARIO_BF = [
+  { desde: SEMANA_BF, hasta: BLACK_FRIDAY, dia: "Jue 19 nov", texto: "Empieza la semana" },
+  { desde: BLACK_FRIDAY, hasta: SABADO_BF, dia: "Vie 27 nov", texto: "Black Friday" },
+  { desde: CYBER_MONDAY, hasta: FIN_BLACK_FRIDAY, dia: "Lun 30 nov", texto: "Cyber Monday · hasta 23:59 peninsular" }
+];
 const fmtEuro = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" });
 // ID de seguimiento de Amazon según de dónde llega la visita (Amazon Afiliados → Gestionar mis ID de seguimiento).
 // chollofino.com/?d=ig (o chollofino.com/ig) → Instagram · ?d=fb → Facebook · ?d=tk → TikTok · resto → chollofino-21
@@ -632,30 +736,80 @@ function pintarFicha(o){
     (otras.length ? '<div class="mas"><div class="titulo-seccion"><div><h2>Más chollos</h2></div></div><div class="rejilla">' + otras.map(tarjeta).join("") + '</div></div>' : "");
   document.title = o.producto + " · Chollo Fino";
 }
+function mostrar(id){ ["vista-lista", "vista-ficha", "vista-bf"].forEach(v => { $(v).hidden = v !== id; }); }
 function ruta(){
   const m = location.hash.match(/^#oferta-(\d+)$/);
   const o = m && ofertas.find(x => String(x.numero) === m[1]);
   if (o){
-    pintarFicha(o);
-    $("vista-lista").hidden = true; $("vista-ficha").hidden = false;
+    pintarFicha(o); mostrar("vista-ficha");
+    window.scrollTo(0, 0);
+  } else if (location.hash === "#black-friday"){
+    pintarBF(); mostrar("vista-bf");
+    document.title = "Black Friday 2026 en Amazon · Chollo Fino";
     window.scrollTo(0, 0);
   } else {
     document.title = "Chollo Fino · Solo chollos que merecen la pena";
     const estabaOculta = $("vista-lista").hidden;
-    $("vista-ficha").hidden = true; $("vista-lista").hidden = false;
+    mostrar("vista-lista");
     const destino = location.hash.length > 1 && document.getElementById(location.hash.slice(1));
     if (estabaOculta && destino) destino.scrollIntoView();
   }
 }
+
+// ---------- Black Friday ----------
+function faseBF(t){
+  if (t < SEMANA_BF) return { barra: "Empieza el jueves 19 · faltan", titulo: "Empieza en", meta: SEMANA_BF,
+    banner: "Amazon empieza el jueves 19. Fino ya tiene los primeros chollos" };
+  if (t < BLACK_FRIDAY) return { barra: "Ya hay ofertas · Black Friday en", titulo: "Ya hay ofertas. El Black Friday llega en", meta: BLACK_FRIDAY,
+    banner: "La semana de Amazon ya ha empezado: lo mejor de cada categoría" };
+  if (t < SABADO_BF) return { barra: "Hoy es Black Friday", titulo: "Hoy es Black Friday", meta: null,
+    banner: "Hoy es Black Friday: lo mejor de cada categoría" };
+  if (t < CYBER_MONDAY) return { barra: "Las ofertas siguen hasta el lunes 30 · Cyber Monday en", titulo: "Las ofertas siguen. Cyber Monday en", meta: CYBER_MONDAY,
+    banner: "Las ofertas siguen hasta el lunes 30" };
+  if (t < FIN_BLACK_FRIDAY) return { barra: "Hoy es Cyber Monday · la semana de Amazon termina en", titulo: "Hoy es Cyber Monday. Termina en", meta: FIN_BLACK_FRIDAY,
+    banner: "Hoy es Cyber Monday, último día de la semana de Amazon" };
+  return { fin: true, barra: "", titulo: "La Semana de Black Friday de Amazon ya ha terminado. Estos son los mejores chollos de hoy.", meta: null, banner: "" };
+}
+function partes(ms){
+  const s = Math.max(0, Math.floor(ms / 1000));
+  return { d: Math.floor(s / 86400), h: Math.floor(s % 86400 / 3600), m: Math.floor(s % 3600 / 60) };
+}
 function relojBlackFriday(){
-  const ahora = new Date();
-  if (ahora >= FIN_BLACK_FRIDAY){ $("barra-bf").hidden = true; return; }
-  $("barra-bf").hidden = false;
-  if (ahora >= BLACK_FRIDAY){ $("texto-bf").textContent = "Ya ha empezado: los mejores precios del año"; $("reloj-bf").textContent = ""; return; }
-  const s = Math.floor((BLACK_FRIDAY - ahora) / 1000);
-  const d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), mi = Math.floor(s % 3600 / 60);
-  $("texto-bf").textContent = "Faltan";
-  $("reloj-bf").textContent = (d ? d + (d === 1 ? " día " : " días ") : "") + String(h).padStart(2, "0") + " h " + String(mi).padStart(2, "0") + " min";
+  const ahora = new Date(), f = faseBF(ahora);
+  $("barra-bf").hidden = !!f.fin; $("bf-banner").hidden = !!f.fin;
+  if (!f.fin){
+    $("texto-bf").textContent = f.barra;
+    if (f.meta){
+      const p = partes(f.meta - ahora);
+      $("reloj-bf").textContent = (p.d ? p.d + (p.d === 1 ? " día " : " días ") : "") + String(p.h).padStart(2, "0") + " h " + String(p.m).padStart(2, "0") + " min";
+    } else $("reloj-bf").textContent = "";
+    $("bf-banner-sub").textContent = f.banner;
+  }
+  $("bf-fase").textContent = f.titulo;
+  if (f.meta){
+    const p = partes(f.meta - ahora);
+    $("bf-reloj").hidden = false;
+    $("bf-reloj").innerHTML = [[p.d, p.d === 1 ? "día" : "días"], [p.h, "horas"], [p.m, "min"]]
+      .map(([v, t]) => '<span><b>' + String(v).padStart(2, "0") + '</b><small>' + t + '</small></span>').join("");
+  } else { $("bf-reloj").hidden = true; $("bf-reloj").innerHTML = ""; }
+  $("bf-calendario").innerHTML = f.fin ? "" : CALENDARIO_BF.map(c => {
+    const estado = ahora >= c.hasta ? "pasado" : (ahora >= c.desde ? "hoy" : "");
+    return '<li class="' + estado + '"><b>' + c.dia + '</b>' + c.texto + '</li>';
+  }).join("");
+}
+function pintarBF(){
+  const reales = ofertas.filter(o => !o.ejemplo);
+  const mejor = (a, b) => descuento(b) - descuento(a) || (b.numero || 0) - (a.numero || 0);
+  const porCategoria = CONFIG.categorias.map(c => reales.filter(o => o.categoria === c).sort(mejor)[0]).filter(Boolean);
+  const vistos = new Set(porCategoria);
+  const descuentos = reales.filter(o => !vistos.has(o) && descuento(o) > 0).sort(mejor).slice(0, 8);
+  const baratos = reales.filter(o => o.precio != null && o.precio < 20).sort((a, b) => a.precio - b.precio || mejor(a, b)).slice(0, 8);
+  [["bf-categorias", porCategoria], ["bf-descuentos", descuentos], ["bf-baratos", baratos]].forEach(([id, lista]) => {
+    $(id).innerHTML = lista.map(tarjeta).join("");
+    $(id).parentElement.hidden = !lista.length;
+  });
+  $("bf-amazon").href = conTag("https://www.amazon.es/deals?tag=" + TAG_AMAZON);
+  relojBlackFriday();
 }
 
 function parseCSV(txt){
