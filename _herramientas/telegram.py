@@ -109,13 +109,22 @@ def api_archivo(metodo, campo, url, **datos):
         return {"ok": False, "description": type(e).__name__}
 
 
-def es_imagen(url):
+def es_imagen(url, contar=False):
     """Cloudflare Pages contesta 200 con la portada si el archivo no existe: hay que mirar el tipo."""
     try:
-        with urllib.request.urlopen(urllib.request.Request(url, method="HEAD"), timeout=20) as r:
-            return r.status == 200 and r.headers.get("Content-Type", "").startswith("image/")
-    except Exception:
-        return False
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (compatible; CholloFinoBot/1.0)"})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            tipo = r.headers.get("Content-Type", "")
+            r.read(1)
+            ok = r.status == 200 and tipo.startswith("image/")
+            motivo = f"HTTP {r.status}, {tipo}"
+    except urllib.error.HTTPError as e:
+        ok, motivo = False, f"HTTP {e.code}"
+    except Exception as e:
+        ok, motivo = False, type(e).__name__
+    if contar:
+        print(f"   {'✅' if ok else '❌'} foto {url.rsplit('/', 2)[-2]}/{url.rsplit('/', 1)[-1]}: {motivo}")
+    return ok
 
 
 def visible(t):
@@ -245,6 +254,10 @@ def comprobar():
         puede = r.get("status") == "creator" or (r.get("status") == "administrator" and r.get("can_post_messages", False))
         print(f"{'✅' if puede else '❌'} {canal}: {r.get('status')}, puede publicar: {'sí' if puede else 'no'}")
         fallo |= not puede
+    hoy = datetime.datetime.now(ZONA).date().isoformat()
+    ofertas = leer_datos((RAIZ / "index.html").read_text(encoding="utf-8"))["OFERTAS"]
+    for o in [o for o in ofertas if str(o.get("fecha", ""))[:10] == hoy][:3]:
+        es_imagen(PINES.format(fecha=hoy, numero=o["numero"]), contar=True)
     return fallo
 
 
@@ -286,7 +299,7 @@ def publicar_ofertas(estado, ofertas, cola, ahora):
     errores = 0
     for o in candidatas[:cuantas]:
         foto = PINES.format(fecha=hoy, numero=o["numero"])
-        con_foto = es_imagen(foto)
+        con_foto = es_imagen(foto, contar=True)
         if con_foto:  # el pie de foto admite 1024 caracteres: si no cabe, sin descripción
             texto = texto_oferta(o)
             if visible(texto) > 1024:
