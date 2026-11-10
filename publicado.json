@@ -81,6 +81,26 @@
    "hora": "19:51",
    "message_id": 23,
    "asin": "B0DLXGCWSW"
+  },
+  {
+   "clave": "video-2026-11-10-cf-top3",
+   "fecha": "2026-11-10",
+   "hora": "20:43",
+   "message_id": 24
+  },
+  {
+   "clave": "oferta-2026-11-10-14",
+   "fecha": "2026-11-10",
+   "hora": "20:43",
+   "message_id": 25,
+   "asin": "B07W5JK8TV"
+  },
+  {
+   "clave": "oferta-2026-11-10-13",
+   "fecha": "2026-11-10",
+   "hora": "20:43",
+   "message_id": 26,
+   "asin": "B0CM2PPNMW"
   }
  ],
  "precioridiculo": [
@@ -143,6 +163,27 @@
    "hora": "19:51",
    "message_id": 20,
    "producto_id": "1005012971842568"
+  },
+  {
+   "clave": "oferta-2026-11-10-14",
+   "fecha": "2026-11-10",
+   "hora": "20:43",
+   "message_id": 21,
+   "producto_id": "1005010545661695"
+  },
+  {
+   "clave": "oferta-2026-11-10-13",
+   "fecha": "2026-11-10",
+   "hora": "20:43",
+   "message_id": 22,
+   "producto_id": "1005012761686220"
+  },
+  {
+   "clave": "oferta-2026-11-10-12",
+   "fecha": "2026-11-10",
+   "hora": "20:43",
+   "message_id": 23,
+   "producto_id": "1005013417865026"
   }
  ]
 }
