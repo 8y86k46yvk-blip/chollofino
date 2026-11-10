@@ -253,6 +253,7 @@ button{font:inherit}
 .buscar-amazon .nota{margin-top:8px}
 @media (min-width:760px){.buscar-amazon{padding:30px 34px}.buscar-amazon img{height:150px;right:24px;top:14px}.buscar-amazon h2,.buscar-amazon p{padding-right:160px}}
 .vacio .boton{margin-top:8px;min-width:220px}
+.aviso-oferta{margin:0 0 12px;padding:10px 14px;border-radius:14px;background:#FFE9E3;color:#B4280F;font-weight:700;font-size:14.5px}
 
 /* ---------- Cómo funciona ---------- */
 .como{background:var(--crema);margin-top:30px;padding:40px 0 44px}
@@ -378,6 +379,7 @@ button{font:inherit}
             </label>
           </div>
         </div>
+        <p class="aviso-oferta" id="aviso-oferta" role="status" hidden></p>
         <div class="rejilla" id="rejilla"></div>
         <section class="buscar-amazon" aria-labelledby="titulo-buscar-amazon">
           <img src="assets/web/fino-6-piensa.webp" alt="" loading="lazy" width="211" height="400">
@@ -752,6 +754,13 @@ function ruta(){
     document.title = "Chollo Fino · Solo chollos que merecen la pena";
     const estabaOculta = $("vista-lista").hidden;
     mostrar("vista-lista");
+    // Enlace a una oferta que ya no está (p. ej., un pin antiguo): avisa y enseña los chollos de hoy
+    $("aviso-oferta").hidden = !m;
+    if (m){
+      $("aviso-oferta").textContent = "La oferta Nº " + m[1] + " ya ha terminado. Estos son los chollos de hoy.";
+      $("chollos").scrollIntoView();
+      return;
+    }
     const destino = location.hash.length > 1 && document.getElementById(location.hash.slice(1));
     if (estabaOculta && destino) destino.scrollIntoView();
   }
