@@ -47,6 +47,7 @@ TAG = "chollofinotg-21"
 PINES = "https://shorts.todo-picks-academy.pages.dev/chollofino/pines/{fecha}-cf-pines/n{numero}.jpg"
 INICIO_OFERTAS, FIN_OFERTAS = 11 * 60, 21 * 60 + 59   # minutos del día, hora de Canarias
 MAX_OFERTAS_POR_VEZ = 3
+ESPERAR_FOTO_HASTA = 13 * 60  # si el pin aún no está, la oferta espera; desde las 13:00 sale sin él
 MAX_VIDEOS_POR_VEZ = 2
 DIAS_SIN_REPETIR_ASIN = 5
 ZONA = ZoneInfo("Atlantic/Canary")
@@ -300,6 +301,9 @@ def publicar_ofertas(estado, ofertas, cola, ahora):
     for o in candidatas[:cuantas]:
         foto = PINES.format(fecha=hoy, numero=o["numero"])
         con_foto = es_imagen(foto, contar=True)
+        if not con_foto and minuto < ESPERAR_FOTO_HASTA:
+            print(f"   Nº {o['numero']}: espero a que esté su foto de Fino (hasta las 13:00)")
+            continue
         if con_foto:  # el pie de foto admite 1024 caracteres: si no cabe, sin descripción
             texto = texto_oferta(o)
             if visible(texto) > 1024:
