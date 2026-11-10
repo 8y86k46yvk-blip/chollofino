@@ -39,6 +39,20 @@
    "hora": "18:02",
    "message_id": 17,
    "asin": "B0CCYSB19S"
+  },
+  {
+   "clave": "oferta-2026-11-10-20",
+   "fecha": "2026-11-10",
+   "hora": "18:47",
+   "message_id": 18,
+   "asin": "B0F99K7DS9"
+  },
+  {
+   "clave": "oferta-2026-11-10-19",
+   "fecha": "2026-11-10",
+   "hora": "18:47",
+   "message_id": 19,
+   "asin": "B0GS8YKMN3"
   }
  ],
  "precioridiculo": [
