@@ -1,1 +1,44 @@
-{}
+{
+ "chollofino": [
+  {
+   "clave": "video-2026-11-10-cf-dia-lefant",
+   "fecha": "2026-11-10",
+   "hora": "17:55",
+   "message_id": 12
+  },
+  {
+   "clave": "video-2026-11-10-cf-tarde-logitech",
+   "fecha": "2026-11-10",
+   "hora": "17:55",
+   "message_id": 13
+  },
+  {
+   "clave": "oferta-2026-11-10-24",
+   "fecha": "2026-11-10",
+   "hora": "17:55",
+   "message_id": 14,
+   "asin": "B000VJXIVI"
+  },
+  {
+   "clave": "oferta-2026-11-10-23",
+   "fecha": "2026-11-10",
+   "hora": "17:55",
+   "message_id": 15,
+   "asin": "B0044R87ZA"
+  }
+ ],
+ "precioridiculo": [
+  {
+   "clave": "video-2026-11-10-pr-opiniones-tres-estrellas",
+   "fecha": "2026-11-10",
+   "hora": "17:55",
+   "message_id": 12
+  },
+  {
+   "clave": "video-2026-11-10-pr-solo-voy-a-mirar",
+   "fecha": "2026-11-10",
+   "hora": "17:55",
+   "message_id": 13
+  }
+ ]
+}
