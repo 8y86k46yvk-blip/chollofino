@@ -135,13 +135,16 @@ button{font:inherit}
 
 /* ---------- Filtros ---------- */
 .herramientas{position:sticky;top:62px;z-index:10;background:linear-gradient(var(--papel) 82%,rgba(247,246,240,0));padding:14px 0 12px;margin-bottom:4px}
-.filtros{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px}
+.filtros{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px}
 .filtros::-webkit-scrollbar{display:none}
 .filtros button{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;padding:0 16px;border-radius:999px;border:1.5px solid var(--linea);background:var(--blanco);color:var(--tinta);cursor:pointer;min-height:44px;transition:transform .15s,background .15s}
 .filtros button:hover{border-color:var(--verde);transform:translateY(-1px)}
 .filtros button[aria-pressed="true"]{background:var(--verde);border-color:var(--verde);color:var(--crema)}
 .filtros .cuenta{font-size:12px;font-weight:800;background:var(--papel);color:var(--gris);border-radius:999px;padding:1px 7px}
 .filtros button[aria-pressed="true"] .cuenta{background:var(--menta);color:var(--verde)}
+.filtros.precios{margin-top:8px}
+.filtros.precios button{font-size:14px;min-height:38px;padding:0 13px;border-style:dashed}
+.filtros.precios button[aria-pressed="true"]{background:var(--coral);border-color:var(--coral);border-style:solid;color:#fff}
 .orden{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
 .estado{color:var(--gris);font-size:14px;margin:0;font-weight:600}
 .orden label{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--gris);font-weight:600}
@@ -158,6 +161,11 @@ button{font:inherit}
 .cartel.Tecnología{background:radial-gradient(120% 90% at 20% 10%,#2A7A5D 0%,#0F3D2E 55%,#0A2A20 100%);color:var(--menta)}
 .cartel.Hogar{background:radial-gradient(120% 90% at 20% 10%,#FFFFFF 0%,#F4F1E8 55%,#E6E1D0 100%);color:var(--verde)}
 .cartel.Regalos{background:radial-gradient(120% 90% at 20% 10%,#FFB49F 0%,#FF7A59 50%,#F2512F 100%);color:#fff}
+.cartel.Cocina{background:radial-gradient(120% 90% at 20% 10%,#FFE6A6 0%,#FFC94D 55%,#F0A21E 100%);color:#0F3D2E}
+.cartel.Belleza{background:radial-gradient(120% 90% at 20% 10%,#FFE1EC 0%,#F6A8C6 55%,#E57AA5 100%);color:#0F3D2E}
+.cartel.Deporte{background:radial-gradient(120% 90% at 20% 10%,#5FA8E8 0%,#2B6CB0 55%,#1C4A80 100%);color:#C8F3D9}
+.cartel.Juguetes{background:radial-gradient(120% 90% at 20% 10%,#B39BF0 0%,#7F5FD6 55%,#5A3BB0 100%);color:#fff}
+.cartel.Moda{background:radial-gradient(120% 90% at 20% 10%,#4A4A4A 0%,#2A2A2A 55%,#161616 100%);color:#7EE2A8}
 .cartel::before{content:"";position:absolute;inset:0;background-image:radial-gradient(currentColor 1px,transparent 1.2px);background-size:16px 16px;opacity:.12;z-index:-1}
 .cartel img.producto{width:100%;height:100%;object-fit:contain;background:#fff;padding:10px}
 .cartel .grande{position:absolute;left:12px;top:42px;font-weight:900;letter-spacing:-0.06em;line-height:.85;font-size:clamp(40px,11vw,64px);font-variant-numeric:tabular-nums}
@@ -296,6 +304,7 @@ button{font:inherit}
         <div class="titulo-seccion"><div><h2 id="titulo-chollos">Todos los chollos</h2><p>Precios comprobados en la fecha de cada oferta.</p></div></div>
         <div class="herramientas">
           <div class="filtros" id="filtros" role="group" aria-label="Filtrar por categoría"></div>
+          <div class="filtros precios" id="filtro-precio" role="group" aria-label="Filtrar por precio"></div>
           <div class="orden">
             <p class="estado" id="estado" aria-live="polite"></p>
             <label for="orden">Ordenar
@@ -364,7 +373,7 @@ const CONFIG = {
   // Si lo dejas vacío, la web usa la lista OFERTAS de abajo.
   hojaCSV: "",
   textoBoton: "Ver en Amazon",
-  categorias: ["Tecnología", "Hogar", "Regalos"]
+  categorias: ["Tecnología", "Hogar", "Cocina", "Belleza", "Deporte", "Juguetes", "Moda", "Regalos"]
 };
 
 // ================== OFERTAS ==================
@@ -381,8 +390,20 @@ const OFERTAS = [
 const ICONOS = {
   "Tecnología": '<path d="M24 58 V50 A26 26 0 0 1 76 50 V58"/><rect x="18" y="56" width="16" height="26" rx="6"/><rect x="66" y="56" width="16" height="26" rx="6"/>',
   "Hogar": '<path d="M16 50 L50 20 L84 50"/><path d="M27 42 V82 H73 V42"/><path d="M44 82 V62 H56 V82"/>',
-  "Regalos": '<rect x="18" y="40" width="64" height="14" rx="3"/><path d="M24 54 V84 H76 V54"/><path d="M50 40 V84"/><path d="M50 40 C42 24 26 26 32 38 C34 41 42 40 50 40 C58 40 66 41 68 38 C74 26 58 24 50 40"/>'
+  "Regalos": '<rect x="18" y="40" width="64" height="14" rx="3"/><path d="M24 54 V84 H76 V54"/><path d="M50 40 V84"/><path d="M50 40 C42 24 26 26 32 38 C34 41 42 40 50 40 C58 40 66 41 68 38 C74 26 58 24 50 40"/>',
+  "Cocina": '<path d="M18 46 H82 V58 A20 20 0 0 1 62 78 H38 A20 20 0 0 1 18 58 Z"/><path d="M82 50 H92"/><path d="M36 34 C34 28 40 26 38 20"/><path d="M50 34 C48 28 54 26 52 20"/><path d="M64 34 C62 28 68 26 66 20"/>',
+  "Belleza": '<rect x="34" y="38" width="32" height="46" rx="8"/><path d="M42 38 V28 H58 V38"/><path d="M46 28 V18 H62"/><path d="M42 56 H58"/>',
+  "Deporte": '<path d="M30 50 H70"/><rect x="18" y="34" width="12" height="32" rx="3"/><rect x="70" y="34" width="12" height="32" rx="3"/><path d="M12 44 V56"/><path d="M88 44 V56"/>',
+  "Juguetes": '<rect x="16" y="36" width="68" height="36" rx="18"/><path d="M32 48 V60"/><path d="M26 54 H38"/><circle cx="64" cy="50" r="3"/><circle cx="72" cy="58" r="3"/>',
+  "Moda": '<path d="M30 22 L44 14 Q50 22 56 14 L70 22 L82 36 L71 43 L66 38 V84 H34 V38 L29 43 L18 36 Z"/>'
 };
+const RANGOS = [
+  { id: "todos", texto: "Cualquier precio", min: 0, max: Infinity },
+  { id: "20", texto: "Hasta 20 €", min: 0, max: 20 },
+  { id: "50", texto: "20 a 50 €", min: 20, max: 50 },
+  { id: "150", texto: "50 a 150 €", min: 50, max: 150 },
+  { id: "mas", texto: "Más de 150 €", min: 150, max: Infinity }
+];
 const POSES = ["fino-4-pulgar-guino", "fino-2-sorpresa", "fino-3-senala", "fino-6-piensa", "fino-1-saludo", "fino-0-base"];
 // Black Friday 2026: viernes 27 de noviembre (hora peninsular). La barra se oculta sola el 1 de diciembre.
 const BLACK_FRIDAY = new Date("2026-11-27T00:00:00+01:00");
@@ -392,6 +413,7 @@ let ofertas = [];
 let categoria = "Todo";
 let busqueda = "";
 let orden = "nuevos";
+let rango = "todos";
 
 const $ = id => document.getElementById(id);
 function esc(s){ return String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
@@ -460,6 +482,8 @@ function filtradas(){
   const t = busqueda.trim().toLowerCase().replace(/^#\s*/, "").replace(/^n[ºo°.]?\s*(?=\d)/, "");
   const lista = ofertas.filter(o => {
     if (categoria !== "Todo" && o.categoria !== categoria) return false;
+    const r = RANGOS.find(x => x.id === rango) || RANGOS[0];
+    if (rango !== "todos" && !(o.precio != null && o.precio >= r.min && o.precio < r.max)) return false;
     if (!t) return true;
     if (/^\d+$/.test(t)) return String(o.numero) === t;
     return (o.producto + " " + o.descripcion + " " + o.categoria).toLowerCase().includes(t);
@@ -481,6 +505,8 @@ function pintarDatos(){
   const ultima = ofertas.map(o => aFecha(o.fecha)).filter(Boolean).sort((a, b) => b - a)[0];
   const datos = [];
   datos.push('<span class="dato"><b>' + reales.length + '</b>' + (reales.length === 1 ? "chollo activo" : "chollos activos") + '</span>');
+  const minPrecio = Math.min(...reales.map(o => o.precio ?? 1e9));
+  if (minPrecio < 1e9 && reales.length > 3) datos.push('<span class="dato">desde <b>' + fmtEuro.format(minPrecio) + '</b></span>');
   if (maxDto) datos.push('<span class="dato calor"><b>-' + maxDto + ' %</b>descuento máximo</span>');
   if (ultima) datos.push('<span class="dato"><b>' + ultima.toLocaleDateString("es-ES", { day: "numeric", month: "short" }) + '</b>última revisión</span>');
   $("datos").innerHTML = datos.join("");
@@ -492,7 +518,7 @@ function pintarDatos(){
 }
 function pintarDestacado(){
   const top = elDestacado();
-  const visible = top && !busqueda.trim() && categoria === "Todo";
+  const visible = top && !busqueda.trim() && categoria === "Todo" && rango === "todos";
   $("bloque-destacado").hidden = !visible;
   if (!visible) return;
   $("destacado").innerHTML = '<article class="destacado">' +
@@ -503,7 +529,11 @@ function pintarDestacado(){
       precios(top) + boton(top) + notaFecha(top) + '</div></article>';
 }
 function pintarFiltros(){
-  const cats = ["Todo"].concat(CONFIG.categorias);
+  const cats = ["Todo"].concat(CONFIG.categorias.filter(c => ofertas.some(o => o.categoria === c)));
+  $("filtro-precio").innerHTML = RANGOS.map(r => {
+    const n = ofertas.filter(o => r.id === "todos" || (o.precio != null && o.precio >= r.min && o.precio < r.max)).length;
+    return (r.id === "todos" || n) ? '<button type="button" aria-pressed="' + (r.id === rango) + '" data-rango="' + r.id + '">' + esc(r.texto) + '</button>' : "";
+  }).join("");
   $("filtros").innerHTML = cats.map(c => {
     const n = c === "Todo" ? ofertas.length : ofertas.filter(o => o.categoria === c).length;
     return '<button type="button" aria-pressed="' + (c === categoria) + '" data-cat="' + esc(c) + '">' + esc(c) + '<span class="cuenta">' + n + '</span></button>';
@@ -589,6 +619,10 @@ document.addEventListener("error", e => {
 $("filtros").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;
   categoria = b.dataset.cat; pintarFiltros(); pintarLista();
+});
+$("filtro-precio").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  rango = b.dataset.rango; pintarFiltros(); pintarLista();
 });
 $("buscar").addEventListener("input", e => { busqueda = e.target.value; pintarLista(); });
 $("buscar").addEventListener("keydown", e => { if (e.key === "Enter"){ e.preventDefault(); $("chollos").scrollIntoView(); } });
