@@ -136,6 +136,13 @@
    "hora": "11:53",
    "message_id": 31,
    "asin": "B07DJJLTSL"
+  },
+  {
+   "clave": "oferta-2026-11-11-30",
+   "fecha": "2026-11-11",
+   "hora": "13:02",
+   "message_id": 32,
+   "asin": "B00XA8DEGQ"
   }
  ],
  "precioridiculo": [
@@ -261,6 +268,26 @@
    "hora": "11:53",
    "message_id": 30,
    "producto_id": "1005012591742056"
+  },
+  {
+   "clave": "video-2026-11-11-pr-cupon-compra-minima",
+   "fecha": "2026-11-11",
+   "hora": "13:02",
+   "message_id": 31
+  },
+  {
+   "clave": "cupones-2026-11-11",
+   "fecha": "2026-11-11",
+   "hora": "13:02",
+   "message_id": 32,
+   "huella": "3 Artículos por 5,99€. Sólo disponible en la APP de AliExpress|3 Artículos por 5,99€: artículos por 0,99€ para los usuarios nuevos|Choice: 3 Artículos por 2,99 €|ESD1103|ESD1108|ESD11100|ESD1112|ESD11120|ESD1123|ESD1139|ESD1158|ESD1175"
+  },
+  {
+   "clave": "oferta-2026-11-11-32",
+   "fecha": "2026-11-11",
+   "hora": "13:02",
+   "message_id": 33,
+   "producto_id": "1005013431016018"
   }
  ]
 }
