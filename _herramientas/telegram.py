@@ -14,6 +14,8 @@ entorno TELEGRAM_BOT_TOKEN (secreto del repo chollofino). Desde la raíz del rep
 
 Qué se publica:
   · Vídeos de la cola (los mismos que van a las redes), a su hora o en cuanto pase, solo los del día.
+  · @precioridiculo: los cupones de AliExpress en vigor (cupones.json de la web), en un mensaje a las 12:30 los días
+    en que la lista de códigos cambia (con enlace a elprecioridiculo.com/cupones/).
   · Mensajes sueltos de la cola (piezas con "tipo": "mensaje"): {"id", "fecha", "hora", "tipo": "mensaje",
     "texto" (HTML de Telegram), "fijar": true (opcional: lo fija arriba del canal)}. Para avisos como el del 11.11.
   · @precioridiculo: cada oferta de hoy de elprecioridiculo.com (AliExpress con precio ≈ y Hacoo), con su pin de Ridi
@@ -351,6 +353,54 @@ def publicar_mensajes(estado, canal, cola, ahora):
     return errores
 
 
+HORA_CUPONES = "12:30"
+
+
+def publicar_cupones_pr(estado, cupones_ruta, ahora):
+    """Cupones en vigor de elprecioridiculo.com en @precioridiculo: un mensaje cuando cambia la lista de códigos."""
+    if not cupones_ruta or ahora.strftime("%H:%M") < HORA_CUPONES:
+        return 0
+    hoy = ahora.date()
+    lista = []
+    for c in leer_json(cupones_ruta, {}).get("cupones", []):
+        try:
+            if c.get("hasta") and datetime.date.fromisoformat(str(c["hasta"])[:10]) < hoy:
+                continue
+        except ValueError:
+            continue
+        if str(c.get("enlace", "")).startswith("https://") and c.get("titulo"):
+            lista.append(c)
+    if not lista:
+        return 0
+    huella = "|".join(sorted(str(c.get("codigo") or c.get("titulo")) for c in lista))
+    ultimo = next((x for x in reversed(estado.get("precioridiculo", [])) if x.get("clave", "").startswith("cupones-")), None)
+    if (ultimo and ultimo.get("huella") == huella) or ya(estado, "precioridiculo", f"cupones-{hoy.isoformat()}"):
+        return 0
+    partes = ["🎟️ <b>CUPONES DE ALIEXPRESS PARA HOY</b>", "",
+              "Cópialo y ponlo al pagar, en la casilla del cupón:", ""]
+    for c in lista[:8]:
+        linea = f"• <b>{E(c['titulo'])}</b>"
+        if c.get("codigo"):
+            linea += f"\n   Código: <code>{E(c['codigo'])}</code>"
+        else:
+            linea += f"\n   👉 <a href=\"{E(con_subid(c['enlace']))}\">Sin código: entra desde aquí</a>"
+        if c.get("hasta"):
+            f = datetime.date.fromisoformat(str(c["hasta"])[:10])
+            linea += f" · hasta el {f.day}/{f.month}"
+        partes.append(linea)
+    partes += ["", "👉 <a href=\"https://elprecioridiculo.com/cupones/?d=tg\">Todos los cupones en elprecioridiculo.com</a>",
+               "<i>Los pone AliExpress y pueden agotarse antes de su fecha. Enlaces de afiliado.</i>"]
+    r = api("sendMessage", chat_id=CANALES["precioridiculo"], text="\n".join(partes), parse_mode="HTML",
+            link_preview_options={"is_disabled": True})
+    if r.get("ok"):
+        apuntar(estado, "precioridiculo", f"cupones-{hoy.isoformat()}", ahora, r, {"huella": huella})
+        print(f"✅ precioridiculo: {len(lista)} cupones")
+        return 0
+    fallo(estado, "precioridiculo", f"cupones-{hoy.isoformat()}")
+    print(f"❌ precioridiculo: cupones: {r.get('description')}")
+    return 1
+
+
 def publicar_ofertas(estado, ofertas, cola, ahora):
     minuto = ahora.hour * 60 + ahora.minute
     if not (INICIO_OFERTAS <= minuto <= FIN_OFERTAS):
@@ -457,6 +507,8 @@ def publicar(carpeta, cola_pr_ruta=None, web_pr_ruta=None):
     errores += publicar_videos(estado, "precioridiculo", cola_pr, ahora, lambda p: texto_video_pr(p, por_numero_pr))
     errores += publicar_mensajes(estado, "chollofino", cola_cf, ahora)
     errores += publicar_mensajes(estado, "precioridiculo", cola_pr, ahora)
+    if web_pr_ruta:
+        errores += publicar_cupones_pr(estado, Path(web_pr_ruta).parent / "cupones.json", ahora)
     errores += publicar_ofertas(estado, ofertas, cola_cf, ahora)
     errores += publicar_ofertas_pr(estado, ofertas_pr, cola_pr, ahora)
 
