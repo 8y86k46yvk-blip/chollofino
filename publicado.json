@@ -176,6 +176,12 @@
    "hora": "16:27",
    "message_id": 37,
    "asin": "B0F62XPWJK"
+  },
+  {
+   "clave": "video-2026-11-11-cf-tarde-cazos-tefal",
+   "fecha": "2026-11-11",
+   "hora": "17:30",
+   "message_id": 38
   }
  ],
  "precioridiculo": [
@@ -342,6 +348,19 @@
    "hora": "16:27",
    "message_id": 36,
    "producto_id": "1005013045469139"
+  },
+  {
+   "clave": "video-2026-11-11-pr-reloj-pared-gigante",
+   "fecha": "2026-11-11",
+   "hora": "17:30",
+   "message_id": 37
+  },
+  {
+   "clave": "oferta-2026-11-11-27",
+   "fecha": "2026-11-11",
+   "hora": "17:30",
+   "message_id": 38,
+   "producto_id": "1005013140934931"
   }
  ]
 }
