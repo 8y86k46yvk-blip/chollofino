@@ -122,6 +122,13 @@
    "hora": "21:38",
    "message_id": 29,
    "asin": "B0GSW1631D"
+  },
+  {
+   "clave": "oferta-2026-11-11-32",
+   "fecha": "2026-11-11",
+   "hora": "11:12",
+   "message_id": 30,
+   "asin": "B0916L9GF4"
   }
  ],
  "precioridiculo": [
@@ -226,6 +233,20 @@
    "hora": "21:38",
    "message_id": 26,
    "producto_id": "1005013463315191"
+  },
+  {
+   "clave": "mensaje-2026-11-11-pr-especial-1111",
+   "fecha": "2026-11-11",
+   "hora": "11:12",
+   "message_id": 27,
+   "fijado": true
+  },
+  {
+   "clave": "oferta-2026-11-11-34",
+   "fecha": "2026-11-11",
+   "hora": "11:12",
+   "message_id": 29,
+   "producto_id": "1005012762798636"
   }
  ]
 }
