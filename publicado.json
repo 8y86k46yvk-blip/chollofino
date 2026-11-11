@@ -163,6 +163,19 @@
    "hora": "15:19",
    "message_id": 35,
    "asin": "B0BNPLSDWN"
+  },
+  {
+   "clave": "video-2026-11-11-cf-mascota-cafetera-limpio",
+   "fecha": "2026-11-11",
+   "hora": "16:27",
+   "message_id": 36
+  },
+  {
+   "clave": "oferta-2026-11-11-26",
+   "fecha": "2026-11-11",
+   "hora": "16:27",
+   "message_id": 37,
+   "asin": "B0F62XPWJK"
   }
  ],
  "precioridiculo": [
@@ -322,6 +335,13 @@
    "hora": "15:19",
    "message_id": 35,
    "producto_id": "1005013071143081"
+  },
+  {
+   "clave": "oferta-2026-11-11-28",
+   "fecha": "2026-11-11",
+   "hora": "16:27",
+   "message_id": 36,
+   "producto_id": "1005013045469139"
   }
  ]
 }
