@@ -143,6 +143,19 @@
    "hora": "13:02",
    "message_id": 32,
    "asin": "B00XA8DEGQ"
+  },
+  {
+   "clave": "video-2026-11-11-cf-dia-plancha",
+   "fecha": "2026-11-11",
+   "hora": "14:17",
+   "message_id": 33
+  },
+  {
+   "clave": "oferta-2026-11-11-29",
+   "fecha": "2026-11-11",
+   "hora": "14:17",
+   "message_id": 34,
+   "asin": "B0CYTDP1N9"
   }
  ],
  "precioridiculo": [
@@ -288,6 +301,13 @@
    "hora": "13:02",
    "message_id": 33,
    "producto_id": "1005013431016018"
+  },
+  {
+   "clave": "oferta-2026-11-11-30",
+   "fecha": "2026-11-11",
+   "hora": "14:17",
+   "message_id": 34,
+   "producto_id": "1005012750833754"
   }
  ]
 }
