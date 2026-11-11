@@ -14,6 +14,8 @@ entorno TELEGRAM_BOT_TOKEN (secreto del repo chollofino). Desde la raíz del rep
 
 Qué se publica:
   · Vídeos de la cola (los mismos que van a las redes), a su hora o en cuanto pase, solo los del día.
+  · Mensajes sueltos de la cola (piezas con "tipo": "mensaje"): {"id", "fecha", "hora", "tipo": "mensaje",
+    "texto" (HTML de Telegram), "fijar": true (opcional: lo fija arriba del canal)}. Para avisos como el del 11.11.
   · @precioridiculo: cada oferta de hoy de elprecioridiculo.com (AliExpress con precio ≈ y Hacoo), con su pin de Ridi
     o la foto de la tienda y el enlace de Admitad con subid=tg; WEB_PR es index.html de esa web (rama main).
   · @chollofino: además, cada oferta de hoy de la web (OFERTAS de index.html) con su foto de Fino (el pin de
@@ -294,7 +296,9 @@ def comprobar():
             continue
         r = m["result"]
         puede = r.get("status") == "creator" or (r.get("status") == "administrator" and r.get("can_post_messages", False))
-        print(f"{'✅' if puede else '❌'} {canal}: {r.get('status')}, puede publicar: {'sí' if puede else 'no'}")
+        fija = r.get("status") == "creator" or (r.get("status") == "administrator" and r.get("can_edit_messages", False))
+        print(f"{'✅' if puede else '❌'} {canal}: {r.get('status')}, puede publicar: {'sí' if puede else 'no'}, "
+              f"puede fijar: {'sí' if fija else 'no'}")
         fallo |= not puede
     hoy = datetime.datetime.now(ZONA).date().isoformat()
     ofertas = leer_datos((RAIZ / "index.html").read_text(encoding="utf-8"))["OFERTAS"]
@@ -319,6 +323,31 @@ def publicar_videos(estado, canal, cola, ahora, crear_texto):
             errores += 1
             fallo(estado, canal, "video-" + p["id"])
             print(f"❌ {canal}: vídeo {p['id']}: {r.get('description')}")
+    return errores
+
+
+def publicar_mensajes(estado, canal, cola, ahora):
+    """Mensajes sueltos de la cola ("tipo": "mensaje"), a su hora; si llevan "fijar", se fijan en el canal."""
+    hoy, ahora_txt, errores = ahora.date().isoformat(), ahora.strftime("%H:%M"), 0
+    pendientes = sorted((p for p in cola.get("piezas", []) if p.get("tipo") == "mensaje" and p.get("fecha") == hoy
+                         and p.get("texto") and p.get("hora", "99:99") <= ahora_txt
+                         and not ya(estado, canal, "mensaje-" + p["id"])), key=lambda p: p["hora"])
+    for p in pendientes[:2]:
+        r = api("sendMessage", chat_id=CANALES[canal], text=p["texto"], parse_mode="HTML")
+        if not r.get("ok"):
+            errores += 1
+            fallo(estado, canal, "mensaje-" + p["id"])
+            print(f"❌ {canal}: mensaje {p['id']}: {r.get('description')}")
+            continue
+        extra = {}
+        if p.get("fijar"):
+            f = api("pinChatMessage", chat_id=CANALES[canal], message_id=r["result"]["message_id"])
+            extra["fijado"] = bool(f.get("ok"))
+            if not f.get("ok"):
+                errores += 1
+                print(f"❌ {canal}: mensaje {p['id']} publicado, pero no se pudo fijar: {f.get('description')}")
+        apuntar(estado, canal, "mensaje-" + p["id"], ahora, r, extra)
+        print(f"✅ {canal}: mensaje {p['id']}{' (fijado)' if extra.get('fijado') else ''}")
     return errores
 
 
@@ -426,6 +455,8 @@ def publicar(carpeta, cola_pr_ruta=None, web_pr_ruta=None):
 
     errores = publicar_videos(estado, "chollofino", cola_cf, ahora, lambda p: texto_video_cf(p, por_numero))
     errores += publicar_videos(estado, "precioridiculo", cola_pr, ahora, lambda p: texto_video_pr(p, por_numero_pr))
+    errores += publicar_mensajes(estado, "chollofino", cola_cf, ahora)
+    errores += publicar_mensajes(estado, "precioridiculo", cola_pr, ahora)
     errores += publicar_ofertas(estado, ofertas, cola_cf, ahora)
     errores += publicar_ofertas_pr(estado, ofertas_pr, cola_pr, ahora)
 
