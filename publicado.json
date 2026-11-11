@@ -368,6 +368,19 @@
    "hora": "18:21",
    "message_id": 39,
    "producto_id": "1005013453863004"
+  },
+  {
+   "clave": "video-2026-11-11-pr-bolsas-compresion-maleta",
+   "fecha": "2026-11-11",
+   "hora": "19:33",
+   "message_id": 40
+  },
+  {
+   "clave": "oferta-2026-11-11-25",
+   "fecha": "2026-11-11",
+   "hora": "19:33",
+   "message_id": 41,
+   "producto_id": "1005013380818240"
   }
  ]
 }
