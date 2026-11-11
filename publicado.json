@@ -182,6 +182,12 @@
    "fecha": "2026-11-11",
    "hora": "17:30",
    "message_id": 38
+  },
+  {
+   "clave": "video-2026-11-11-cf-top3",
+   "fecha": "2026-11-11",
+   "hora": "21:00",
+   "message_id": 39
   }
  ],
  "precioridiculo": [
@@ -381,6 +387,26 @@
    "hora": "19:33",
    "message_id": 41,
    "producto_id": "1005013380818240"
+  },
+  {
+   "clave": "video-2026-11-10-pr-despertador-prueba",
+   "fecha": "2026-11-11",
+   "hora": "21:00",
+   "message_id": 42
+  },
+  {
+   "clave": "oferta-2026-11-11-24",
+   "fecha": "2026-11-11",
+   "hora": "21:00",
+   "message_id": 43,
+   "producto_id": "1005013373644994"
+  },
+  {
+   "clave": "oferta-2026-11-11-23",
+   "fecha": "2026-11-11",
+   "hora": "21:00",
+   "message_id": 44,
+   "producto_id": "1005013486949383"
   }
  ]
 }
