@@ -202,6 +202,32 @@
    "hora": "13:03",
    "message_id": 41,
    "asin": "B0H1135WTX"
+  },
+  {
+   "clave": "video-2026-11-12-cf-dia-ring",
+   "fecha": "2026-11-12",
+   "hora": "20:45",
+   "message_id": 43
+  },
+  {
+   "clave": "video-2026-11-12-cf-tarde-oppo",
+   "fecha": "2026-11-12",
+   "hora": "20:45",
+   "message_id": 44
+  },
+  {
+   "clave": "oferta-2026-11-12-38",
+   "fecha": "2026-11-12",
+   "hora": "20:45",
+   "message_id": 45,
+   "asin": "B0HHNS4JSF"
+  },
+  {
+   "clave": "oferta-2026-11-12-37",
+   "fecha": "2026-11-12",
+   "hora": "20:45",
+   "message_id": 46,
+   "asin": "B00JOBFWI6"
   }
  ],
  "precioridiculo": [
@@ -448,6 +474,39 @@
    "hora": "13:03",
    "message_id": 48,
    "producto_id": "1005013585189611"
+  },
+  {
+   "clave": "video-2026-11-12-pr-tapa-webcam-gato",
+   "fecha": "2026-11-12",
+   "hora": "20:45",
+   "message_id": 50
+  },
+  {
+   "clave": "video-2026-11-12-pr-dos-camisetas-algodon",
+   "fecha": "2026-11-12",
+   "hora": "20:45",
+   "message_id": 51
+  },
+  {
+   "clave": "oferta-2026-11-12-45",
+   "fecha": "2026-11-12",
+   "hora": "20:45",
+   "message_id": 52,
+   "producto_id": "1005004223465351"
+  },
+  {
+   "clave": "oferta-2026-11-12-43",
+   "fecha": "2026-11-12",
+   "hora": "20:45",
+   "message_id": 53,
+   "producto_id": "1005004078464582"
+  },
+  {
+   "clave": "oferta-2026-11-12-41",
+   "fecha": "2026-11-12",
+   "hora": "20:45",
+   "message_id": 54,
+   "producto_id": "1005009640557117"
   }
  ]
 }
