@@ -18,7 +18,8 @@ Qué se publica:
     en que la lista de códigos cambia (con enlace a elprecioridiculo.com/cupones/).
   · Mensajes sueltos de la cola (piezas con "tipo": "mensaje"): {"id", "fecha", "hora", "tipo": "mensaje",
     "texto" (HTML de Telegram), "fijar": true (opcional: lo fija arriba del canal)}. Para avisos como el del 11.11.
-  · @precioridiculo: cada oferta de hoy de elprecioridiculo.com (AliExpress con precio ≈ y Hacoo), con su pin de Ridi
+  · @precioridiculo: cada oferta de hoy de elprecioridiculo.com (AliExpress con precio ≈ y Hacoo; nunca las que llevan
+    "solo_web": true, como las de Joom), con su pin de Ridi
     o la foto de la tienda y el enlace de Admitad con subid=tg; WEB_PR es index.html de esa web (rama main).
   · @chollofino: además, cada oferta de hoy de la web (OFERTAS de index.html) con su foto de Fino (el pin de
     public/chollofino/pines/AAAA-MM-DD-cf-pines/n<numero>.jpg) y el enlace con el ID chollofinotg-21, repartidas
@@ -452,8 +453,9 @@ def publicar_ofertas_pr(estado, ofertas, cola, ahora):
     recientes = {x.get("producto_id") for x in estado.get("precioridiculo", []) if x.get("fecha", "") >= hace}
     en_video = {n for p in cola.get("piezas", []) if p.get("fecha") == hoy for n in p.get("numeros", [])[:1]
                 if len(p.get("numeros", [])) == 1}
-    pid = lambda o: str(o.get("ali_id") or o.get("enlace") or o.get("numero"))  # noqa: E731
-    candidatas = [o for o in ofertas if not o.get("ejemplo") and str(o.get("fecha", ""))[:10] == hoy
+    pid = lambda o: str(o.get("ali_id") or o.get("joom_id") or o.get("enlace") or o.get("numero"))  # noqa: E731
+    # solo_web: ofertas que van solo en la web (Joom, hasta que su gestor apruebe publicarlas en redes y Telegram)
+    candidatas = [o for o in ofertas if not o.get("ejemplo") and not o.get("solo_web") and str(o.get("fecha", ""))[:10] == hoy
                   and str(o.get("enlace", "")).startswith("https://") and o.get("precio") is not None
                   and o.get("numero") not in en_video and pid(o) not in recientes
                   and not ya(estado, "precioridiculo", f"oferta-{hoy}-{o.get('numero')}")]
