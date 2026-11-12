@@ -195,6 +195,13 @@
    "hora": "11:55",
    "message_id": 40,
    "asin": "B0H4H89QXV"
+  },
+  {
+   "clave": "oferta-2026-11-12-39",
+   "fecha": "2026-11-12",
+   "hora": "13:03",
+   "message_id": 41,
+   "asin": "B0H1135WTX"
   }
  ],
  "precioridiculo": [
@@ -421,6 +428,26 @@
    "hora": "11:55",
    "message_id": 45,
    "producto_id": "1005012613911651"
+  },
+  {
+   "clave": "video-2026-11-12-pr-cuenta-atras-lista-deseos",
+   "fecha": "2026-11-12",
+   "hora": "13:03",
+   "message_id": 46
+  },
+  {
+   "clave": "cupones-2026-11-12",
+   "fecha": "2026-11-12",
+   "hora": "13:03",
+   "message_id": 47,
+   "huella": "3 Artículos por 5,99€. Sólo disponible en la APP de AliExpress|3 Artículos por 5,99€: artículos por 0,99€ para los usuarios nuevos|Choice: 3 Artículos por 2,99 €|ESD1103|ESD1108|ESD1112|ESD1123|ESD1139|ESD1158|ESD1175"
+  },
+  {
+   "clave": "oferta-2026-11-12-46",
+   "fecha": "2026-11-12",
+   "hora": "13:03",
+   "message_id": 48,
+   "producto_id": "1005013585189611"
   }
  ]
 }
