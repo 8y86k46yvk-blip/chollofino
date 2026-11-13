@@ -228,6 +228,25 @@
    "hora": "20:45",
    "message_id": 46,
    "asin": "B00JOBFWI6"
+  },
+  {
+   "clave": "video-2026-11-13-cf-dia-xiaomi-tv",
+   "fecha": "2026-11-13",
+   "hora": "16:06",
+   "message_id": 48
+  },
+  {
+   "clave": "video-2026-11-13-cf-mascota-tiras-led-limpio",
+   "fecha": "2026-11-13",
+   "hora": "16:06",
+   "message_id": 49
+  },
+  {
+   "clave": "oferta-2026-11-13-56",
+   "fecha": "2026-11-13",
+   "hora": "16:06",
+   "message_id": 50,
+   "asin": "B0FQG1W153"
   }
  ],
  "precioridiculo": [
@@ -507,6 +526,19 @@
    "hora": "20:45",
    "message_id": 54,
    "producto_id": "1005009640557117"
+  },
+  {
+   "clave": "video-2026-11-13-pr-precio-tachado",
+   "fecha": "2026-11-13",
+   "hora": "16:06",
+   "message_id": 56
+  },
+  {
+   "clave": "oferta-2026-11-13-67",
+   "fecha": "2026-11-13",
+   "hora": "16:06",
+   "message_id": 57,
+   "producto_id": "1005013324082251"
   }
  ]
 }
