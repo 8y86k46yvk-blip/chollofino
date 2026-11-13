@@ -247,6 +247,18 @@
    "hora": "16:06",
    "message_id": 50,
    "asin": "B0FQG1W153"
+  },
+  {
+   "clave": "video-2026-11-13-cf-tarde-helly-hansen",
+   "fecha": "2026-11-13",
+   "hora": "22:06",
+   "message_id": 51
+  },
+  {
+   "clave": "video-2026-11-13-cf-top3",
+   "fecha": "2026-11-13",
+   "hora": "22:06",
+   "message_id": 52
   }
  ],
  "precioridiculo": [
@@ -539,6 +551,18 @@
    "hora": "16:06",
    "message_id": 57,
    "producto_id": "1005013324082251"
+  },
+  {
+   "clave": "video-2026-11-13-pr-candado-tres-digitos",
+   "fecha": "2026-11-13",
+   "hora": "22:06",
+   "message_id": 58
+  },
+  {
+   "clave": "video-2026-11-13-pr-gotero-tulipan",
+   "fecha": "2026-11-13",
+   "hora": "22:06",
+   "message_id": 59
   }
  ]
 }
