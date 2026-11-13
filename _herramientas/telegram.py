@@ -20,7 +20,8 @@ Qué se publica:
     "texto" (HTML de Telegram), "fijar": true (opcional: lo fija arriba del canal)}. Para avisos como el del 11.11.
   · @precioridiculo: cada oferta de hoy de elprecioridiculo.com (AliExpress con precio ≈ y Hacoo; nunca las que llevan
     "solo_web": true, como las de Joom), con su pin de Ridi
-    o la foto de la tienda y el enlace de Admitad con subid=tg; WEB_PR es index.html de esa web (rama main).
+    o la foto de la tienda y, mientras PR_ENLACE_DIRECTO sea False, el enlace a su ficha en la web (#oferta-N);
+    con True, el enlace de Admitad con subid=tg; WEB_PR es index.html de esa web (rama main).
   · @chollofino: además, cada oferta de hoy de la web (OFERTAS de index.html) con su foto de Fino (el pin de
     public/chollofino/pines/AAAA-MM-DD-cf-pines/n<numero>.jpg) y el enlace con el ID chollofinotg-21, repartidas
     de 11:00 a 21:59 (hora de Canarias). Una oferta que ya sale sola en un vídeo «chollo» de hoy no se repite, y un
@@ -162,6 +163,24 @@ def precio_linea(o):
     return t
 
 
+# Admitad (13 nov 2026): los enlaces de afiliado solo pueden ir en espacios publicitarios dados de alta y unidos al
+# programa. Mientras @precioridiculo no sea un espacio propio en Admitad, los mensajes del canal llevan a la oferta en
+# la web (elprecioridiculo.com/#oferta-N), que es el espacio aprobado. Cuando lo sea, se pone True con sus enlaces.
+PR_ENLACE_DIRECTO = False
+WEB_PR_URL = "https://elprecioridiculo.com/?d=tg"
+
+
+def enlace_pr(o):
+    """Enlace de una oferta de Precio Ridículo en Telegram: a la ficha de la web, o directo si el canal ya es espacio."""
+    if PR_ENLACE_DIRECTO:
+        return con_subid(o["enlace"])
+    return f"{WEB_PR_URL}#oferta-{o['numero']}"
+
+
+def boton_pr(o):
+    return f"Ver en {tienda(o)}" if PR_ENLACE_DIRECTO else "Ver la oferta en la web"
+
+
 def con_subid(enlace, subid="tg"):
     """Enlaces de Admitad: subid dice en el informe de Admitad de dónde vino la venta (web, tg…)."""
     u = urllib.parse.urlsplit(enlace)
@@ -179,7 +198,8 @@ def pie_pr(fecha, aprox, con_publi=True, nombre_tienda="la tienda"):
     if con_publi:
         nota = (f"Precio aproximado del {f.day}/{f.month} (pasado de dólares); el final, en {E(nombre_tienda)}."
                 if aprox else f"Precio del {f.day}/{f.month}, puede cambiar.")
-        t += f"\n<i>#publi · Enlace de afiliado. {nota}</i>"
+        afiliado = "Enlace de afiliado." if PR_ENLACE_DIRECTO else "La web usa enlaces de afiliado."
+        t += f"\n<i>#publi · {afiliado} {nota}</i>"
     return t
 
 
@@ -187,7 +207,7 @@ def texto_oferta_pr(o, con_descripcion=True):
     partes = [f"🔥 <b>{E(o['producto'])}</b>", "", precio_linea(o)]
     if con_descripcion and o.get("descripcion"):
         partes.append(E(o["descripcion"]))
-    partes += ["", f"👉 <a href=\"{E(con_subid(o['enlace']))}\">Ver en {E(tienda(o))}</a>", "",
+    partes += ["", f"👉 <a href=\"{E(enlace_pr(o))}\">{E(boton_pr(o))}</a>", "",
                f"Nº {E(o['numero'])} en la web", pie_pr(o["fecha"][:10], o.get("aprox"), True, tienda(o))]
     return "\n".join(partes)
 
@@ -231,14 +251,15 @@ def texto_video_pr(p, por_numero=None):
     if productos:
         for o in productos:
             partes += ["", f"🔥 <b>{E(o['producto'])}</b>", precio_linea(o),
-                       f"👉 <a href=\"{E(con_subid(o['enlace']))}\">Ver en {E(tienda(o))}</a> · Nº {E(o['numero'])}"]
+                       f"👉 <a href=\"{E(enlace_pr(o))}\">{E(boton_pr(o))}</a> · Nº {E(o['numero'])}"]
         o = productos[0]
         partes += ["", pie_pr(p["fecha"], any(x.get("aprox") for x in productos), True, tienda(o))]
         return "\n".join(partes)
-    if p.get("enlace"):
+    directo = p.get("enlace") and PR_ENLACE_DIRECTO      # enlace de Hacoo solo si el canal ya es espacio de Admitad
+    if directo:
         partes += ["", f"👉 <a href=\"{E(p['enlace'])}\">Ver en Hacoo</a>"]
     partes += ["", "🛍️ <a href=\"https://elprecioridiculo.com\">Más en elprecioridiculo.com</a>"]
-    if p.get("enlace"):
+    if directo:
         f = datetime.date.fromisoformat(p["fecha"])
         partes.append(f"<i>#publi · Enlace de afiliado. Precio del {f.day}/{f.month}, puede cambiar.</i>")
     return "\n".join(partes)
@@ -384,13 +405,15 @@ def publicar_cupones_pr(estado, cupones_ruta, ahora):
         if c.get("codigo"):
             linea += f"\n   Código: <code>{E(c['codigo'])}</code>"
         else:
-            linea += f"\n   👉 <a href=\"{E(con_subid(c['enlace']))}\">Sin código: entra desde aquí</a>"
+            destino = con_subid(c["enlace"]) if PR_ENLACE_DIRECTO else "https://elprecioridiculo.com/cupones/?d=tg"
+            linea += f"\n   👉 <a href=\"{E(destino)}\">Sin código: entra desde aquí</a>"
         if c.get("hasta"):
             f = datetime.date.fromisoformat(str(c["hasta"])[:10])
             linea += f" · hasta el {f.day}/{f.month}"
         partes.append(linea)
     partes += ["", "👉 <a href=\"https://elprecioridiculo.com/cupones/?d=tg\">Todos los cupones en elprecioridiculo.com</a>",
-               "<i>Los pone AliExpress y pueden agotarse antes de su fecha. Enlaces de afiliado.</i>"]
+               "<i>Los pone AliExpress y pueden agotarse antes de su fecha. "
+               + ("Enlaces de afiliado." if PR_ENLACE_DIRECTO else "La web usa enlaces de afiliado.") + "</i>"]
     r = api("sendMessage", chat_id=CANALES["precioridiculo"], text="\n".join(partes), parse_mode="HTML",
             link_preview_options={"is_disabled": True})
     if r.get("ok"):
