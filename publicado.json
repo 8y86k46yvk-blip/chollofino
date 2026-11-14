@@ -285,6 +285,12 @@
    "hora": "19:51",
    "message_id": 56,
    "asin": "B0C5GBXZZN"
+  },
+  {
+   "clave": "video-2026-11-14-cf-top3",
+   "fecha": "2026-11-14",
+   "hora": "23:49",
+   "message_id": 57
   }
  ],
  "precioridiculo": [
@@ -628,6 +634,12 @@
    "hora": "19:51",
    "message_id": 65,
    "producto_id": "1005012552856480"
+  },
+  {
+   "clave": "video-2026-11-14-pr-mascota-farol-solar",
+   "fecha": "2026-11-14",
+   "hora": "23:49",
+   "message_id": 66
   }
  ]
 }
