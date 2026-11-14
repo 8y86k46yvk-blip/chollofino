@@ -259,6 +259,19 @@
    "fecha": "2026-11-13",
    "hora": "22:06",
    "message_id": 52
+  },
+  {
+   "clave": "video-2026-11-14-cf-dia-freidora-cristal",
+   "fecha": "2026-11-14",
+   "hora": "14:56",
+   "message_id": 53
+  },
+  {
+   "clave": "oferta-2026-11-14-63",
+   "fecha": "2026-11-14",
+   "hora": "14:56",
+   "message_id": 54,
+   "asin": "B0CB1TYFBD"
   }
  ],
  "precioridiculo": [
@@ -563,6 +576,19 @@
    "fecha": "2026-11-13",
    "hora": "22:06",
    "message_id": 59
+  },
+  {
+   "clave": "video-2026-11-14-pr-yo-de-rebajas",
+   "fecha": "2026-11-14",
+   "hora": "14:56",
+   "message_id": 60
+  },
+  {
+   "clave": "oferta-2026-11-14-96",
+   "fecha": "2026-11-14",
+   "hora": "14:56",
+   "message_id": 61,
+   "producto_id": "1005013188482852"
   }
  ]
 }
