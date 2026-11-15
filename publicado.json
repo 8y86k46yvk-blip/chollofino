@@ -310,6 +310,39 @@
    "hora": "15:35",
    "message_id": 60,
    "asin": "B0G4NC8KN7"
+  },
+  {
+   "clave": "video-2026-11-15-cf-tarde-lego-star-wars",
+   "fecha": "2026-11-15",
+   "hora": "20:58",
+   "message_id": 61
+  },
+  {
+   "clave": "video-2026-11-15-cf-top3",
+   "fecha": "2026-11-15",
+   "hora": "20:58",
+   "message_id": 62
+  },
+  {
+   "clave": "oferta-2026-11-15-76",
+   "fecha": "2026-11-15",
+   "hora": "20:58",
+   "message_id": 63,
+   "asin": "B0GT9BW7DK"
+  },
+  {
+   "clave": "oferta-2026-11-15-74",
+   "fecha": "2026-11-15",
+   "hora": "20:58",
+   "message_id": 64,
+   "asin": "B01EOX0B66"
+  },
+  {
+   "clave": "oferta-2026-11-15-73",
+   "fecha": "2026-11-15",
+   "hora": "20:58",
+   "message_id": 65,
+   "asin": "B0D4C7C5W5"
   }
  ],
  "precioridiculo": [
@@ -665,6 +698,18 @@
    "fecha": "2026-11-15",
    "hora": "15:35",
    "message_id": 67
+  },
+  {
+   "clave": "video-2026-11-15-pr-correa-maleta-clave",
+   "fecha": "2026-11-15",
+   "hora": "20:58",
+   "message_id": 68
+  },
+  {
+   "clave": "video-2026-11-15-pr-camiseta-langostas",
+   "fecha": "2026-11-15",
+   "hora": "20:58",
+   "message_id": 69
   }
  ]
 }
