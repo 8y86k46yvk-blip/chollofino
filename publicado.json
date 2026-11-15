@@ -291,6 +291,25 @@
    "fecha": "2026-11-14",
    "hora": "23:49",
    "message_id": 57
+  },
+  {
+   "clave": "video-2026-11-15-cf-dia-perfume-boss",
+   "fecha": "2026-11-15",
+   "hora": "15:35",
+   "message_id": 58
+  },
+  {
+   "clave": "video-2026-11-15-cf-mascota-robot-friegasuelos",
+   "fecha": "2026-11-15",
+   "hora": "15:35",
+   "message_id": 59
+  },
+  {
+   "clave": "oferta-2026-11-15-77",
+   "fecha": "2026-11-15",
+   "hora": "15:35",
+   "message_id": 60,
+   "asin": "B0G4NC8KN7"
   }
  ],
  "precioridiculo": [
@@ -640,6 +659,12 @@
    "fecha": "2026-11-14",
    "hora": "23:49",
    "message_id": 66
+  },
+  {
+   "clave": "video-2026-11-15-pr-leer-ficha",
+   "fecha": "2026-11-15",
+   "hora": "15:35",
+   "message_id": 67
   }
  ]
 }
