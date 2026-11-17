@@ -369,6 +369,18 @@
    "hora": "17:33",
    "message_id": 69,
    "asin": "B0GL27XFXV"
+  },
+  {
+   "clave": "video-2026-11-17-cf-tarde-beats-solo4",
+   "fecha": "2026-11-17",
+   "hora": "23:56",
+   "message_id": 70
+  },
+  {
+   "clave": "video-2026-11-17-cf-top3",
+   "fecha": "2026-11-17",
+   "hora": "23:56",
+   "message_id": 71
   }
  ],
  "precioridiculo": [
@@ -760,6 +772,12 @@
    "fecha": "2026-11-17",
    "hora": "17:33",
    "message_id": 73
+  },
+  {
+   "clave": "video-2026-11-17-pr-bascula-maleta",
+   "fecha": "2026-11-17",
+   "hora": "23:56",
+   "message_id": 74
   }
  ]
 }
