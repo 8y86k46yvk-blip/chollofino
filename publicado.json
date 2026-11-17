@@ -343,6 +343,32 @@
    "hora": "20:58",
    "message_id": 65,
    "asin": "B0D4C7C5W5"
+  },
+  {
+   "clave": "video-2026-11-17-cf-dia-ring-intercom",
+   "fecha": "2026-11-17",
+   "hora": "17:33",
+   "message_id": 66
+  },
+  {
+   "clave": "video-2026-11-17-cf-mascota-freidora-dual-limpio",
+   "fecha": "2026-11-17",
+   "hora": "17:33",
+   "message_id": 67
+  },
+  {
+   "clave": "oferta-2026-11-17-104",
+   "fecha": "2026-11-17",
+   "hora": "17:33",
+   "message_id": 68,
+   "asin": "B0DT4W6GGL"
+  },
+  {
+   "clave": "oferta-2026-11-17-103",
+   "fecha": "2026-11-17",
+   "hora": "17:33",
+   "message_id": 69,
+   "asin": "B0GL27XFXV"
   }
  ],
  "precioridiculo": [
@@ -722,6 +748,18 @@
    "fecha": "2026-11-16",
    "hora": "18:20",
    "message_id": 71
+  },
+  {
+   "clave": "video-2026-11-17-pr-fotos-paquete-roto",
+   "fecha": "2026-11-17",
+   "hora": "17:33",
+   "message_id": 72
+  },
+  {
+   "clave": "video-2026-11-17-pr-espejo-colibri",
+   "fecha": "2026-11-17",
+   "hora": "17:33",
+   "message_id": 73
   }
  ]
 }
