@@ -1,21 +1,31 @@
-# Canales de Telegram @chollofino y @precioridiculo: publica las ofertas de hoy de cada web (con la foto de Fino o de Ridi)
+# Canales de Telegram @chollofino y @precioridiculo: publica las ofertas de cada web (con la foto de Fino o de Ridi)
 # y los vídeos que van a las redes. Script: _herramientas/telegram.py. Secreto: TELEGRAM_BOT_TOKEN.
 # Cola y registro en la rama «telegram» (cola.json lo escribe la tarea diaria de redes; publicado.json, este taller).
+#
+# Por qué un bucle (18 nov 2026): el cron de GitHub de cada media hora solo se ejecutaba 2-4 veces al día (y a veces de
+# madrugada), así que casi todas las ofertas se quedaban sin publicar. Ahora cada ejecución pasa por el script cada
+# 10 minutos durante unas 5 h y media y, antes de acabar, se lanza a sí misma otra vez (workflow_dispatch), de 7:00 a
+# 22:45 (hora de Canarias). Por la noche se para sola. Por la mañana arranca con el primer push del día a este repo
+# (las ofertas de la web o la cola de vídeos) y, si no, con los cron de respaldo. Gracias a «concurrency» nunca hay
+# dos a la vez: lo que llega mientras hay uno en marcha espera, y lo repetido se cancela solo.
 name: Telegram · canales
 
 on:
+  push:
+    branches: [main, telegram]
   schedule:
-    - cron: "5,35 8-22 * * *"   # cada media hora, 8:05-22:35 UTC (Canarias: igual en invierno, +1 h en verano)
+    - cron: "17 8,10,13,16,19 * * *"   # respaldo (UTC; Canarias: igual en invierno, +1 h en verano)
   workflow_dispatch:
     inputs:
       modo:
-        description: "comprobar (no publica nada) o publicar"
+        description: "publicar (bucle de todo el día) o comprobar (no publica nada)"
         type: choice
-        options: [comprobar, publicar]
-        default: comprobar
+        options: [publicar, comprobar]
+        default: publicar
 
 permissions:
   contents: write
+  actions: write   # para lanzarse a sí mismo al final de cada tramo
 
 concurrency:
   group: telegram
@@ -23,13 +33,16 @@ concurrency:
 
 jobs:
   telegram:
+    # los push del propio taller (publicado.json) los hace GITHUB_TOKEN y no lanzan nada; los demás push sí
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 350
     env:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       MODO: ${{ github.event_name == 'workflow_dispatch' && inputs.modo || 'publicar' }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Comprobar el bot y los canales
         if: env.MODO == 'comprobar'
@@ -43,37 +56,62 @@ jobs:
           path: estado
           fetch-depth: 0
 
-      - name: Cola de Precio Ridículo
-        if: env.MODO == 'publicar'
-        run: |
-          git clone --depth 1 -b telegram https://github.com/8y86k46yvk-blip/Precioridiculo-.git pr || echo "Precio Ridículo aún no tiene cola"
-          git clone --depth 1 https://github.com/8y86k46yvk-blip/Precioridiculo-.git pr-web || echo "No se pudo leer la web de Precio Ridículo"
-
-      - name: Publicar
-        id: publicar
+      - name: Publicar cada 10 minutos
+        id: bucle
         if: env.MODO == 'publicar'
         run: |
           set +e
-          python3 _herramientas/telegram.py publicar estado pr/cola.json pr-web/index.html
-          echo "codigo=$?" >> "$GITHUB_OUTPUT"
-
-      - name: Guardar lo publicado
-        if: env.MODO == 'publicar'
-        working-directory: estado
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add publicado.json
-          if git diff --cached --quiet; then echo "Nada nuevo"; exit 0; fi
-          git commit -q -m "Telegram $(date -u +%F' '%H:%M) UTC"
-          for i in 1 2 3; do
-            git pull -q --rebase origin telegram && git push -q origin HEAD:telegram && exit 0
-            sleep 5
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          inicio=$(date +%s)
+          pases=0; pases_con_error=0; seguir=no
+          minuto() { echo $(( 10#$(TZ=Atlantic/Canary date +%H) * 60 + 10#$(TZ=Atlantic/Canary date +%M) )); }
+          al_dia() {  # $1 carpeta, $2 repo, $3 rama: deja la carpeta igual que GitHub (sin historia)
+            if [ -d "$1/.git" ]; then
+              git -C "$1" fetch -q --depth 1 origin "$3" && git -C "$1" reset -q --hard FETCH_HEAD
+            else
+              git clone -q --depth 1 -b "$3" "https://github.com/8y86k46yvk-blip/$2.git" "$1"
+            fi
+          }
+          while true; do
+            pases=$((pases + 1))
+            echo "::group::Pase $pases ($(TZ=Atlantic/Canary date +%H:%M) en Canarias)"
+            git fetch -q --depth 1 origin main && git reset -q --hard FETCH_HEAD          # ofertas de hoy y script al día
+            git -C estado pull -q --rebase origin telegram                               # cola de vídeos de Chollo Fino
+            al_dia pr Precioridiculo- telegram || echo "Precio Ridículo aún no tiene cola"
+            al_dia pr-web Precioridiculo- main || echo "No se pudo leer la web de Precio Ridículo"
+            python3 _herramientas/telegram.py publicar estado pr/cola.json pr-web/index.html
+            [ $? -eq 0 ] || pases_con_error=$((pases_con_error + 1))
+            git -C estado add publicado.json
+            if ! git -C estado diff --cached --quiet; then
+              git -C estado commit -q -m "Telegram $(date -u +%F' '%H:%M) UTC"
+              for i in 1 2 3; do
+                git -C estado pull -q --rebase origin telegram && git -C estado push -q origin HEAD:telegram && break
+                sleep 5
+              done
+            fi
+            echo "::endgroup::"
+            m=$(minuto)
+            if [ "$m" -lt 420 ] || [ "$m" -ge 1365 ]; then
+              echo "Fuera del horario del canal (7:00-22:45 en Canarias): paro hasta mañana."; break
+            fi
+            if [ $(( $(date +%s) - inicio )) -ge 19800 ]; then
+              echo "Llevo 5 h y media: lanzo el siguiente tramo."; seguir=si; break
+            fi
+            sleep 600
           done
-          exit 1
+          echo "seguir=$seguir" >> "$GITHUB_OUTPUT"
+          echo "pases_con_error=$pases_con_error" >> "$GITHUB_OUTPUT"
+          echo "$pases pases, $pases_con_error con algún error"
+
+      - name: Lanzar el siguiente tramo
+        if: always() && env.MODO == 'publicar' && steps.bucle.outputs.seguir == 'si'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run telegram.yml -R "$GITHUB_REPOSITORY" --ref main -f modo=publicar
 
       - name: Avisar si algo falló
-        if: env.MODO == 'publicar' && steps.publicar.outputs.codigo != '0'
+        if: env.MODO == 'publicar' && steps.bucle.outputs.pases_con_error != '0'
         run: |
-          echo "::error::Alguna publicación de Telegram falló: mira el paso «Publicar»"
+          echo "::error::En ${{ steps.bucle.outputs.pases_con_error }} pases falló alguna publicación de Telegram: mira el paso «Publicar cada 10 minutos»"
           exit 1

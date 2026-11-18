@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Canales de Telegram de Adrian (@chollofino y @precioridiculo): publica solo lo de cada día.
 
-Lo ejecuta el taller .github/workflows/telegram.yml cada media hora (8:05-22:35 UTC). Necesita la variable de
+Lo ejecuta el taller .github/workflows/telegram.yml cada 10 minutos, de 10:00 a 22:45 (hora de Canarias), en un
+bucle que se encadena solo (el cron de GitHub fallaba: solo lo lanzaba 2-4 veces al día). Necesita la variable de
 entorno TELEGRAM_BOT_TOKEN (secreto del repo chollofino). Desde la raíz del repo:
 
   python3 _herramientas/telegram.py comprobar
@@ -18,13 +19,14 @@ Qué se publica:
     en que la lista de códigos cambia (con enlace a elprecioridiculo.com/cupones/).
   · Mensajes sueltos de la cola (piezas con "tipo": "mensaje"): {"id", "fecha", "hora", "tipo": "mensaje",
     "texto" (HTML de Telegram), "fijar": true (opcional: lo fija arriba del canal)}. Para avisos como el del 11.11.
-  · @precioridiculo: cada oferta de hoy de elprecioridiculo.com (AliExpress con precio ≈ y Hacoo; nunca las que llevan
-    "solo_web": true, como las de Joom), con su pin de Ridi
+  · @precioridiculo: cada oferta de hoy de elprecioridiculo.com (y las de ayer que aún no hayan salido), AliExpress
+    con precio ≈ y Hacoo; nunca las que llevan "solo_web": true, como las de Joom; con su pin de Ridi
     o la foto de la tienda y, mientras PR_ENLACE_DIRECTO sea False, el enlace a su ficha en la web (#oferta-N);
     con True, el enlace de Admitad con subid=tg; WEB_PR es index.html de esa web (rama main).
   · @chollofino: además, cada oferta de hoy de la web (OFERTAS de index.html) con su foto de Fino (el pin de
-    public/chollofino/pines/AAAA-MM-DD-cf-pines/n<numero>.jpg) y el enlace con el ID chollofinotg-21, repartidas
-    de 11:00 a 21:59 (hora de Canarias). Una oferta que ya sale sola en un vídeo «chollo» de hoy no se repite, y un
+    public/chollofino/pines/AAAA-MM-DD-cf-pines/n<numero>.jpg) y el enlace con el ID chollofinotg-21. Las ofertas de
+    los dos canales se reparten por igual de 11:00 a 22:30 (hora de Canarias): a cada hora le toca su parte del total
+    del día. Una oferta que ya sale sola en un vídeo «chollo» de hoy no se repite, y un
     mismo ASIN no se publica dos veces en 5 días.
 
 Formato de cola.json: {"piezas": [{"id": "2026-11-11-cf-dia-rowenta", "fecha": "2026-11-11", "hora": "13:30",
@@ -54,8 +56,9 @@ CANALES = {"chollofino": "@chollofino", "precioridiculo": "@precioridiculo"}
 TAG = "chollofinotg-21"
 PINES = "https://shorts.todo-picks-academy.pages.dev/chollofino/pines/{fecha}-cf-pines/n{numero}.jpg"
 PINES_PR = "https://shorts.todo-picks-academy.pages.dev/precioridiculo/pines/{fecha}-pr-pines/n{numero}.jpg"
-INICIO_OFERTAS, FIN_OFERTAS = 11 * 60, 21 * 60 + 59   # minutos del día, hora de Canarias
-MAX_OFERTAS_POR_VEZ = 3
+INICIO_OFERTAS, FIN_OFERTAS = 11 * 60, 22 * 60 + 30   # minutos del día, hora de Canarias
+MAX_OFERTAS_POR_VEZ = 4   # el taller pasa cada 10 minutos (bucle de telegram.yml); esto solo limita los acelerones
+PASO_MIN = 10             # cada cuánto pasa el taller: sirve para repartir las ofertas a lo largo del día
 ESPERAR_FOTO_HASTA = 13 * 60  # si el pin aún no está, la oferta espera; desde las 13:00 sale sin él
 MAX_VIDEOS_POR_VEZ = 2
 DIAS_SIN_REPETIR_ASIN = 5
@@ -425,10 +428,20 @@ def publicar_cupones_pr(estado, cupones_ruta, ahora):
     return 1
 
 
+def cuantas_toca(estado, canal, hoy, pendientes, minuto):
+    """Reparte las ofertas del día por igual entre INICIO y FIN, pase el taller cuando pase: a cada hora le toca la
+    parte proporcional del total (lo ya publicado hoy + lo pendiente). Si el taller no ha pasado en un rato, se pone al
+    día poco a poco (como mucho MAX_OFERTAS_POR_VEZ de golpe)."""
+    hechas = sum(1 for x in estado.get(canal, []) if x.get("clave", "").startswith(f"oferta-{hoy}-"))
+    total = hechas + pendientes
+    progreso = min(1.0, max(0.0, (minuto - INICIO_OFERTAS + PASO_MIN) / (FIN_OFERTAS - INICIO_OFERTAS)))
+    return hechas, max(0, min(MAX_OFERTAS_POR_VEZ, pendientes, math.ceil(total * progreso) - hechas))
+
+
 def publicar_ofertas(estado, ofertas, cola, ahora):
     minuto = ahora.hour * 60 + ahora.minute
     if not (INICIO_OFERTAS <= minuto <= FIN_OFERTAS):
-        print("Ofertas: fuera de horario (11:00-21:59).")
+        print("Ofertas: fuera de horario (11:00-22:30).")
         return 0
     hoy = ahora.date().isoformat()
     hace = (ahora.date() - datetime.timedelta(days=DIAS_SIN_REPETIR_ASIN)).isoformat()
@@ -438,9 +451,8 @@ def publicar_ofertas(estado, ofertas, cola, ahora):
                   and o.get("precio") is not None and o.get("numero") not in en_video
                   and asin(o) not in asins_recientes and not ya(estado, "chollofino", f"oferta-{hoy}-{o.get('numero')}")]
     candidatas.sort(key=lambda o: -(o.get("numero") or 0))
-    turnos = max(1, (FIN_OFERTAS - minuto) // 30 + 1)
-    cuantas = min(MAX_OFERTAS_POR_VEZ, math.ceil(len(candidatas) / turnos)) if candidatas else 0
-    print(f"Ofertas: {len(candidatas)} por publicar hoy, {turnos} turnos, ahora {cuantas}")
+    hechas, cuantas = cuantas_toca(estado, "chollofino", hoy, len(candidatas), minuto)
+    print(f"Ofertas: {hechas} publicadas hoy, {len(candidatas)} por publicar, ahora {cuantas}")
     errores = 0
     for o in candidatas[:cuantas]:
         foto = PINES.format(fecha=hoy, numero=o["numero"])
@@ -467,29 +479,39 @@ def publicar_ofertas(estado, ofertas, cola, ahora):
 
 
 def publicar_ofertas_pr(estado, ofertas, cola, ahora):
-    """Ofertas de hoy de elprecioridiculo.com en @precioridiculo, con su pin de Ridi o la foto de la tienda."""
+    """Ofertas de hoy de elprecioridiculo.com en @precioridiculo, con su pin de Ridi o la foto de la tienda.
+    También las de ayer que aún no hayan salido: la tarea de ofertas de la mañana usa la lista de candidatos de ayer
+    (con la fecha de ayer) cuando la de hoy aún no está, y sin esto esas ofertas no salían nunca en el canal."""
     minuto = ahora.hour * 60 + ahora.minute
     if not (INICIO_OFERTAS <= minuto <= FIN_OFERTAS):
         return 0
     hoy = ahora.date().isoformat()
+    ayer = (ahora.date() - datetime.timedelta(days=1)).isoformat()
     hace = (ahora.date() - datetime.timedelta(days=DIAS_SIN_REPETIR_ASIN)).isoformat()
     recientes = {x.get("producto_id") for x in estado.get("precioridiculo", []) if x.get("fecha", "") >= hace}
     en_video = {n for p in cola.get("piezas", []) if p.get("fecha") == hoy for n in p.get("numeros", [])[:1]
                 if len(p.get("numeros", [])) == 1}
     pid = lambda o: str(o.get("ali_id") or o.get("joom_id") or o.get("enlace") or o.get("numero"))  # noqa: E731
     # solo_web: ofertas que van solo en la web (Joom, hasta que su gestor apruebe publicarlas en redes y Telegram)
-    candidatas = [o for o in ofertas if not o.get("ejemplo") and not o.get("solo_web") and str(o.get("fecha", ""))[:10] == hoy
+    candidatas = [o for o in ofertas if not o.get("ejemplo") and not o.get("solo_web")
+                  and str(o.get("fecha", ""))[:10] in (hoy, ayer)
                   and str(o.get("enlace", "")).startswith("https://") and o.get("precio") is not None
                   and o.get("numero") not in en_video and pid(o) not in recientes
                   and not ya(estado, "precioridiculo", f"oferta-{hoy}-{o.get('numero')}")]
-    candidatas.sort(key=lambda o: -(o.get("numero") or 0))
-    turnos = max(1, (FIN_OFERTAS - minuto) // 30 + 1)
-    cuantas = min(MAX_OFERTAS_POR_VEZ, math.ceil(len(candidatas) / turnos)) if candidatas else 0
-    print(f"Ofertas Precio Ridículo: {len(candidatas)} por publicar hoy, {turnos} turnos, ahora {cuantas}")
+    # primero las de hoy (si las hay) y, dentro de cada día, las mejores (número más alto)
+    candidatas.sort(key=lambda o: (str(o.get("fecha", ""))[:10] != hoy, -(o.get("numero") or 0)))
+    hechas, cuantas = cuantas_toca(estado, "precioridiculo", hoy, len(candidatas), minuto)
+    print(f"Ofertas Precio Ridículo: {hechas} publicadas hoy, {len(candidatas)} por publicar, ahora {cuantas}")
     errores = 0
     for o in candidatas[:cuantas]:
-        pin = PINES_PR.format(fecha=hoy, numero=o["numero"])
-        foto = pin if es_imagen(pin, contar=True) else (o.get("imagen") if str(o.get("imagen", "")).startswith("https://") else "")
+        foto = ""
+        for f in dict.fromkeys((hoy, str(o.get("fecha", ""))[:10])):  # el pin de Ridi lo hace la tarea de redes de hoy
+            pin = PINES_PR.format(fecha=f, numero=o["numero"])
+            if es_imagen(pin, contar=True):
+                foto = pin
+                break
+        if not foto and str(o.get("imagen", "")).startswith("https://"):
+            foto = o["imagen"]
         texto = texto_oferta_pr(o)
         if foto:
             if visible(texto) > 1024:
