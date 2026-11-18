@@ -381,6 +381,34 @@
    "fecha": "2026-11-17",
    "hora": "23:56",
    "message_id": 71
+  },
+  {
+   "clave": "oferta-2026-11-18-127",
+   "fecha": "2026-11-18",
+   "hora": "13:00",
+   "message_id": 72,
+   "asin": "B0FPNH326D"
+  },
+  {
+   "clave": "oferta-2026-11-18-126",
+   "fecha": "2026-11-18",
+   "hora": "13:00",
+   "message_id": 73,
+   "asin": "B08QRYTNC3"
+  },
+  {
+   "clave": "oferta-2026-11-18-125",
+   "fecha": "2026-11-18",
+   "hora": "13:00",
+   "message_id": 74,
+   "asin": "B0FTWQJL8J"
+  },
+  {
+   "clave": "oferta-2026-11-18-124",
+   "fecha": "2026-11-18",
+   "hora": "13:00",
+   "message_id": 75,
+   "asin": "B0FCG4B4C7"
   }
  ],
  "precioridiculo": [
@@ -806,6 +834,19 @@
    "hora": "12:29",
    "message_id": 78,
    "producto_id": "1005013571603862"
+  },
+  {
+   "clave": "video-2026-11-18-pr-carrito-madrugada",
+   "fecha": "2026-11-18",
+   "hora": "13:00",
+   "message_id": 79
+  },
+  {
+   "clave": "oferta-2026-11-18-163",
+   "fecha": "2026-11-18",
+   "hora": "13:00",
+   "message_id": 80,
+   "producto_id": "1005013290906708"
   }
  ]
 }
