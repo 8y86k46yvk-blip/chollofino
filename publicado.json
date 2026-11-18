@@ -903,5 +903,8 @@
    "message_id": 84,
    "producto_id": "1005012455357738"
   }
- ]
+ ],
+ "fallos": {
+  "chollofino:oferta-2026-11-18-119": 1
+ }
 }
