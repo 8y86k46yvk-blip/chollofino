@@ -628,6 +628,13 @@
    "hora": "16:00",
    "message_id": 107,
    "asin": "B0DGM8MKZB"
+  },
+  {
+   "clave": "oferta-2026-11-19-142",
+   "fecha": "2026-11-19",
+   "hora": "16:31",
+   "message_id": 108,
+   "asin": "B08H2F1VQJ"
   }
  ],
  "precioridiculo": [
@@ -1287,6 +1294,12 @@
    "hora": "16:10",
    "message_id": 112,
    "producto_id": "1005012184590611"
+  },
+  {
+   "clave": "video-2026-11-19-pr-reloj-digital-temperatura",
+   "fecha": "2026-11-19",
+   "hora": "16:31",
+   "message_id": 113
   }
  ],
  "fallos": {}
