@@ -608,6 +608,12 @@
    "hora": "15:10",
    "message_id": 104,
    "asin": "B0FGD7H94C"
+  },
+  {
+   "clave": "video-2026-11-19-cf-mascota-videotimbre",
+   "fecha": "2026-11-19",
+   "hora": "15:30",
+   "message_id": 105
   }
  ],
  "precioridiculo": [
@@ -1253,6 +1259,13 @@
    "hora": "15:00",
    "message_id": 110,
    "producto_id": "1005012798404614"
+  },
+  {
+   "clave": "oferta-2026-11-19-182",
+   "fecha": "2026-11-19",
+   "hora": "15:30",
+   "message_id": 111,
+   "producto_id": "1005009639376369"
   }
  ],
  "fallos": {}
