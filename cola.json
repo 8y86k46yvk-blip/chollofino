@@ -1,48 +1,6 @@
 {
  "piezas": [
   {
-   "id": "2026-11-11-cf-dia-plancha",
-   "fecha": "2026-11-11",
-   "hora": "13:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-11-cf-dia-plancha.mp4",
-   "titulo": "¿Una plancha de vapor de 3000 W por menos de 27 €?",
-   "numeros": [
-    28
-   ]
-  },
-  {
-   "id": "2026-11-11-cf-mascota-cafetera-limpio",
-   "fecha": "2026-11-11",
-   "hora": "15:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/mascota/2026-11-11-cf-mascota-cafetera-limpio.mp4",
-   "titulo": "¿Café de cafetería sin salir de casa? Fino te enseña esta cafetera",
-   "numeros": [
-    33
-   ]
-  },
-  {
-   "id": "2026-11-11-cf-tarde-cazos-tefal",
-   "fecha": "2026-11-11",
-   "hora": "17:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-11-cf-tarde-cazos-tefal.mp4",
-   "titulo": "¿3 cazos Tefal con 2 tapas por menos de 48 €?",
-   "numeros": [
-    25
-   ]
-  },
-  {
-   "id": "2026-11-11-cf-top3",
-   "fecha": "2026-11-11",
-   "hora": "20:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-11-cf-top3.mp4",
-   "titulo": "Top 3 de hoy: ¿más de 200 € de rebaja en el número 1?",
-   "numeros": [
-    33,
-    32,
-    29
-   ]
-  },
-  {
    "id": "2026-11-12-cf-dia-ring",
    "fecha": "2026-11-12",
    "hora": "13:30",
@@ -262,6 +220,48 @@
     121,
     115,
     111
+   ]
+  },
+  {
+   "id": "2026-11-19-cf-dia-ninja-doble",
+   "fecha": "2026-11-19",
+   "hora": "13:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-19-cf-dia-ninja-doble.mp4",
+   "titulo": "¿Cuánto crees que cuesta esta freidora doble?",
+   "numeros": [
+    154
+   ]
+  },
+  {
+   "id": "2026-11-19-cf-mascota-videotimbre",
+   "fecha": "2026-11-19",
+   "hora": "15:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/mascota/2026-11-19-cf-mascota-videotimbre.mp4",
+   "titulo": "¿No oyes cuando llaman a la puerta?",
+   "numeros": [
+    150
+   ]
+  },
+  {
+   "id": "2026-11-19-cf-tarde-taladro-bosch",
+   "fecha": "2026-11-19",
+   "hora": "17:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-19-cf-tarde-taladro-bosch.mp4",
+   "titulo": "Regálaselo a quien monta todos los muebles",
+   "numeros": [
+    131
+   ]
+  },
+  {
+   "id": "2026-11-19-cf-top3",
+   "fecha": "2026-11-19",
+   "hora": "20:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-19-cf-top3.mp4",
+   "titulo": "Hasta 200 € menos en el día 1 de la Semana Black Friday",
+   "numeros": [
+    155,
+    152,
+    146
    ]
   }
  ]
