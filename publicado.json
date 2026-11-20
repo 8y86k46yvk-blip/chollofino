@@ -883,6 +883,13 @@
    "hora": "18:33",
    "message_id": 144,
    "asin": "B01C4HCV58"
+  },
+  {
+   "clave": "oferta-2026-11-20-166",
+   "fecha": "2026-11-20",
+   "hora": "19:03",
+   "message_id": 145,
+   "asin": "B0GHMZXX8Y"
   }
  ],
  "precioridiculo": [
@@ -1769,6 +1776,12 @@
    "hora": "18:43",
    "message_id": 145,
    "producto_id": "1005013556036093"
+  },
+  {
+   "clave": "video-2026-11-20-pr-pinzas-ducha",
+   "fecha": "2026-11-20",
+   "hora": "19:03",
+   "message_id": 146
   }
  ],
  "fallos": {
