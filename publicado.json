@@ -800,6 +800,13 @@
    "hora": "13:51",
    "message_id": 132,
    "asin": "B07JBK3JQF"
+  },
+  {
+   "clave": "oferta-2026-11-20-178",
+   "fecha": "2026-11-20",
+   "hora": "14:11",
+   "message_id": 133,
+   "asin": "B09GSPDV8K"
   }
  ],
  "precioridiculo": [
@@ -1603,6 +1610,13 @@
    "hora": "13:41",
    "message_id": 133,
    "producto_id": "1005013489055185"
+  },
+  {
+   "clave": "oferta-2026-11-20-214",
+   "fecha": "2026-11-20",
+   "hora": "14:11",
+   "message_id": 134,
+   "producto_id": "1005008535191915"
   }
  ],
  "fallos": {}
