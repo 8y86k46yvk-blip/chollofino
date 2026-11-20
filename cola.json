@@ -1,38 +1,6 @@
 {
  "piezas": [
   {
-   "id": "2026-11-12-cf-dia-ring",
-   "fecha": "2026-11-12",
-   "hora": "13:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-12-cf-dia-ring.mp4",
-   "titulo": "¿Quieres ver tu casa desde el móvil? Cámara Ring por 17,99 €",
-   "numeros": [
-    42
-   ]
-  },
-  {
-   "id": "2026-11-12-cf-tarde-oppo",
-   "fecha": "2026-11-12",
-   "hora": "17:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-12-cf-tarde-oppo.mp4",
-   "titulo": "¿Auriculares OPPO por menos de 20 €?",
-   "numeros": [
-    40
-   ]
-  },
-  {
-   "id": "2026-11-12-cf-top3",
-   "fecha": "2026-11-12",
-   "hora": "20:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-12-cf-top3.mp4",
-   "titulo": "Top 3 para ir guardando: el 1 baja más de 500 €",
-   "numeros": [
-    39,
-    41,
-    36
-   ]
-  },
-  {
    "id": "2026-11-13-cf-dia-xiaomi-tv",
    "fecha": "2026-11-13",
    "hora": "13:30",
@@ -262,6 +230,38 @@
     155,
     152,
     146
+   ]
+  },
+  {
+   "id": "2026-11-20-cf-dia-blink-outdoor",
+   "fecha": "2026-11-20",
+   "hora": "13:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-20-cf-dia-blink-outdoor.mp4",
+   "titulo": "Esta cámara Blink baja más de 100 €",
+   "numeros": [
+    161
+   ]
+  },
+  {
+   "id": "2026-11-20-cf-tarde-cafetera-cecotec",
+   "fecha": "2026-11-20",
+   "hora": "17:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-20-cf-tarde-cafetera-cecotec.mp4",
+   "titulo": "¿Una superautomática por 179 €?",
+   "numeros": [
+    184
+   ]
+  },
+  {
+   "id": "2026-11-20-cf-top3",
+   "fecha": "2026-11-20",
+   "hora": "20:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-20-cf-top3.mp4",
+   "titulo": "3 regalos que bajan hasta 400 €",
+   "numeros": [
+    186,
+    177,
+    163
    ]
   }
  ]
