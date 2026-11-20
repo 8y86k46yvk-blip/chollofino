@@ -842,6 +842,13 @@
    "hora": "16:12",
    "message_id": 138,
    "asin": "B0F2N91DQ8"
+  },
+  {
+   "clave": "oferta-2026-11-20-171",
+   "fecha": "2026-11-20",
+   "hora": "17:02",
+   "message_id": 139,
+   "asin": "B0CL6KNT72"
   }
  ],
  "precioridiculo": [
@@ -1704,6 +1711,6 @@
  ],
  "fallos": {
   "precioridiculo:oferta-2026-11-20-210": 1,
-  "chollofino:oferta-2026-11-20-172": 2
+  "chollofino:oferta-2026-11-20-172": 3
  }
 }
