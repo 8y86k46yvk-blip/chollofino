@@ -773,6 +773,13 @@
    "hora": "12:30",
    "message_id": 128,
    "asin": "B06XSSJQDB"
+  },
+  {
+   "clave": "oferta-2026-11-20-181",
+   "fecha": "2026-11-20",
+   "hora": "13:01",
+   "message_id": 129,
+   "asin": "B0G4SHPH5K"
   }
  ],
  "precioridiculo": [
@@ -1556,6 +1563,12 @@
    "hora": "12:50",
    "message_id": 130,
    "producto_id": "1005009680330661"
+  },
+  {
+   "clave": "video-2026-11-20-pr-barato-o-bueno",
+   "fecha": "2026-11-20",
+   "hora": "13:01",
+   "message_id": 131
   }
  ],
  "fallos": {}
