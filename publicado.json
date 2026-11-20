@@ -1668,5 +1668,7 @@
    "producto_id": "1005012499923473"
   }
  ],
- "fallos": {}
+ "fallos": {
+  "precioridiculo:oferta-2026-11-20-210": 1
+ }
 }
