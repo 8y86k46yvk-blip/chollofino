@@ -1549,6 +1549,13 @@
    "hora": "12:30",
    "message_id": 129,
    "huella": "3 Artículos por 5,99€. Sólo disponible en la APP de AliExpress|3 Artículos por 5,99€: artículos por 0,99€ para los usuarios nuevos|Choice: 3 Artículos por 2,99 €|ESBF02"
+  },
+  {
+   "clave": "oferta-2026-11-20-218",
+   "fecha": "2026-11-20",
+   "hora": "12:50",
+   "message_id": 130,
+   "producto_id": "1005009680330661"
   }
  ],
  "fallos": {}
