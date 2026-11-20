@@ -1693,10 +1693,17 @@
    "fecha": "2026-11-20",
    "hora": "16:32",
    "message_id": 140
+  },
+  {
+   "clave": "oferta-2026-11-20-207",
+   "fecha": "2026-11-20",
+   "hora": "16:52",
+   "message_id": 141,
+   "producto_id": "1005013657198113"
   }
  ],
  "fallos": {
   "precioridiculo:oferta-2026-11-20-210": 1,
-  "chollofino:oferta-2026-11-20-172": 1
+  "chollofino:oferta-2026-11-20-172": 2
  }
 }
