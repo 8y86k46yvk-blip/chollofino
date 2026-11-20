@@ -766,6 +766,13 @@
    "hora": "12:10",
    "message_id": 127,
    "asin": "B0GSH6FCBN"
+  },
+  {
+   "clave": "oferta-2026-11-20-182",
+   "fecha": "2026-11-20",
+   "hora": "12:30",
+   "message_id": 128,
+   "asin": "B06XSSJQDB"
   }
  ],
  "precioridiculo": [
@@ -1535,6 +1542,13 @@
    "hora": "12:20",
    "message_id": 128,
    "producto_id": "1005013598685824"
+  },
+  {
+   "clave": "cupones-2026-11-20",
+   "fecha": "2026-11-20",
+   "hora": "12:30",
+   "message_id": 129,
+   "huella": "3 Artículos por 5,99€. Sólo disponible en la APP de AliExpress|3 Artículos por 5,99€: artículos por 0,99€ para los usuarios nuevos|Choice: 3 Artículos por 2,99 €|ESBF02"
   }
  ],
  "fallos": {}
