@@ -2003,6 +2003,13 @@
    "hora": "13:34",
    "message_id": 161,
    "producto_id": "1005013375896683"
+  },
+  {
+   "clave": "oferta-2026-11-21-244",
+   "fecha": "2026-11-21",
+   "hora": "14:04",
+   "message_id": 162,
+   "producto_id": "1005013312457836"
   }
  ],
  "fallos": {}
