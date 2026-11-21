@@ -980,6 +980,13 @@
    "hora": "12:33",
    "message_id": 158,
    "asin": "B0H6XTZQRF"
+  },
+  {
+   "clave": "oferta-2026-11-21-212",
+   "fecha": "2026-11-21",
+   "hora": "13:03",
+   "message_id": 159,
+   "asin": "B09BD7L35V"
   }
  ],
  "precioridiculo": [
@@ -1956,6 +1963,19 @@
    "hora": "12:43",
    "message_id": 158,
    "producto_id": "1005013535372426"
+  },
+  {
+   "clave": "video-2026-11-21-pr-tamano-real",
+   "fecha": "2026-11-21",
+   "hora": "13:03",
+   "message_id": 159
+  },
+  {
+   "clave": "oferta-2026-11-21-246",
+   "fecha": "2026-11-21",
+   "hora": "13:03",
+   "message_id": 160,
+   "producto_id": "1005008758365143"
   }
  ],
  "fallos": {}
