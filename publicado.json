@@ -1125,6 +1125,12 @@
    "hora": "20:17",
    "message_id": 179,
    "asin": "B0FGJ9P8L9"
+  },
+  {
+   "clave": "video-2026-11-21-cf-top3",
+   "fecha": "2026-11-21",
+   "hora": "20:37",
+   "message_id": 180
   }
  ],
  "precioridiculo": [
@@ -2238,6 +2244,13 @@
    "hora": "20:17",
    "message_id": 178,
    "producto_id": "1005010553597886"
+  },
+  {
+   "clave": "oferta-2026-11-21-226",
+   "fecha": "2026-11-21",
+   "hora": "20:37",
+   "message_id": 179,
+   "producto_id": "1005013639198264"
   }
  ],
  "fallos": {}
