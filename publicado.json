@@ -1097,6 +1097,13 @@
    "hora": "18:46",
    "message_id": 175,
    "asin": "B0BPZ1TNNM"
+  },
+  {
+   "clave": "oferta-2026-11-21-195",
+   "fecha": "2026-11-21",
+   "hora": "19:06",
+   "message_id": 176,
+   "asin": "B0F33P8VJ6"
   }
  ],
  "precioridiculo": [
@@ -2183,6 +2190,12 @@
    "hora": "18:56",
    "message_id": 174,
    "producto_id": "1005012934132873"
+  },
+  {
+   "clave": "video-2026-11-21-pr-pulpo-taza",
+   "fecha": "2026-11-21",
+   "hora": "19:06",
+   "message_id": 175
   }
  ],
  "fallos": {}
