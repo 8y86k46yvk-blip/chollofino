@@ -1076,6 +1076,13 @@
    "fecha": "2026-11-21",
    "hora": "17:36",
    "message_id": 172
+  },
+  {
+   "clave": "oferta-2026-11-21-198",
+   "fecha": "2026-11-21",
+   "hora": "17:56",
+   "message_id": 173,
+   "asin": "B0721PY3M9"
   }
  ],
  "precioridiculo": [
@@ -2141,6 +2148,13 @@
    "hora": "17:36",
    "message_id": 171,
    "producto_id": "1005013053936388"
+  },
+  {
+   "clave": "oferta-2026-11-21-233",
+   "fecha": "2026-11-21",
+   "hora": "17:56",
+   "message_id": 172,
+   "producto_id": "1005013632568124"
   }
  ],
  "fallos": {}
