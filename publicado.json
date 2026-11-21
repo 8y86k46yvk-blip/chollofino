@@ -994,6 +994,12 @@
    "hora": "13:24",
    "message_id": 160,
    "asin": "B0GSS4M55K"
+  },
+  {
+   "clave": "video-2026-11-21-cf-dia-freidora-bosch",
+   "fecha": "2026-11-21",
+   "hora": "13:34",
+   "message_id": 161
   }
  ],
  "precioridiculo": [
@@ -1983,6 +1989,13 @@
    "hora": "13:03",
    "message_id": 160,
    "producto_id": "1005008758365143"
+  },
+  {
+   "clave": "oferta-2026-11-21-245",
+   "fecha": "2026-11-21",
+   "hora": "13:34",
+   "message_id": 161,
+   "producto_id": "1005013375896683"
   }
  ],
  "fallos": {}
