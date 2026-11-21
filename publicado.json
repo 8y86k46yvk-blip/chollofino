@@ -2017,6 +2017,13 @@
    "hora": "14:04",
    "message_id": 162,
    "producto_id": "1005013312457836"
+  },
+  {
+   "clave": "oferta-2026-11-21-243",
+   "fecha": "2026-11-21",
+   "hora": "14:24",
+   "message_id": 163,
+   "producto_id": "1005013633579127"
   }
  ],
  "fallos": {}
