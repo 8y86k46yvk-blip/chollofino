@@ -1070,6 +1070,12 @@
    "hora": "17:25",
    "message_id": 171,
    "asin": "B0D2Z3GGCY"
+  },
+  {
+   "clave": "video-2026-11-21-cf-tarde-logitech-g335",
+   "fecha": "2026-11-21",
+   "hora": "17:36",
+   "message_id": 172
   }
  ],
  "precioridiculo": [
@@ -2128,6 +2134,13 @@
    "hora": "17:05",
    "message_id": 170,
    "producto_id": "1005012519481622"
+  },
+  {
+   "clave": "oferta-2026-11-21-234",
+   "fecha": "2026-11-21",
+   "hora": "17:36",
+   "message_id": 171,
+   "producto_id": "1005013053936388"
   }
  ],
  "fallos": {}
