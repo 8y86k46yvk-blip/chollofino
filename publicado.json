@@ -1270,6 +1270,13 @@
    "hora": "16:37",
    "message_id": 200,
    "asin": "B0CGDW249K"
+  },
+  {
+   "clave": "oferta-2026-11-22-231",
+   "fecha": "2026-11-22",
+   "hora": "17:08",
+   "message_id": 201,
+   "asin": "B00LH3DMUO"
   }
  ],
  "precioridiculo": [
@@ -2507,6 +2514,13 @@
    "hora": "16:37",
    "message_id": 196,
    "producto_id": "1005013501011220"
+  },
+  {
+   "clave": "oferta-2026-11-22-266",
+   "fecha": "2026-11-22",
+   "hora": "17:08",
+   "message_id": 197,
+   "producto_id": "1005013233866663"
   }
  ],
  "fallos": {}
