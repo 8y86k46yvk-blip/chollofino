@@ -1263,6 +1263,13 @@
    "hora": "16:17",
    "message_id": 199,
    "asin": "B0F1XF99XX"
+  },
+  {
+   "clave": "oferta-2026-11-22-232",
+   "fecha": "2026-11-22",
+   "hora": "16:37",
+   "message_id": 200,
+   "asin": "B0CGDW249K"
   }
  ],
  "precioridiculo": [
@@ -2487,6 +2494,19 @@
    "hora": "16:07",
    "message_id": 194,
    "producto_id": "1005012261532416"
+  },
+  {
+   "clave": "video-2026-11-22-pr-jarron-fruta",
+   "fecha": "2026-11-22",
+   "hora": "16:37",
+   "message_id": 195
+  },
+  {
+   "clave": "oferta-2026-11-22-267",
+   "fecha": "2026-11-22",
+   "hora": "16:37",
+   "message_id": 196,
+   "producto_id": "1005013501011220"
   }
  ],
  "fallos": {}
