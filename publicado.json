@@ -1284,6 +1284,12 @@
    "hora": "17:28",
    "message_id": 202,
    "asin": "B0BJQQ78BY"
+  },
+  {
+   "clave": "video-2026-11-22-cf-tarde-tocadiscos",
+   "fecha": "2026-11-22",
+   "hora": "17:38",
+   "message_id": 203
   }
  ],
  "precioridiculo": [
@@ -2528,6 +2534,13 @@
    "hora": "17:08",
    "message_id": 197,
    "producto_id": "1005013233866663"
+  },
+  {
+   "clave": "oferta-2026-11-22-265",
+   "fecha": "2026-11-22",
+   "hora": "17:38",
+   "message_id": 198,
+   "producto_id": "1005013659969445"
   }
  ],
  "fallos": {}
