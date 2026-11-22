@@ -1208,6 +1208,12 @@
    "hora": "13:26",
    "message_id": 191,
    "asin": "B0GQZ7BZ3W"
+  },
+  {
+   "clave": "video-2026-11-22-cf-dia-raclette-cecotec",
+   "fecha": "2026-11-22",
+   "hora": "13:36",
+   "message_id": 192
   }
  ],
  "precioridiculo": [
@@ -2390,6 +2396,13 @@
    "fecha": "2026-11-22",
    "hora": "13:06",
    "message_id": 188
+  },
+  {
+   "clave": "oferta-2026-11-22-275",
+   "fecha": "2026-11-22",
+   "hora": "13:36",
+   "message_id": 189,
+   "producto_id": "1005012046698768"
   }
  ],
  "fallos": {}
