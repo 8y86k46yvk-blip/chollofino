@@ -1,38 +1,6 @@
 {
  "piezas": [
   {
-   "id": "2026-11-14-cf-dia-freidora-cristal",
-   "fecha": "2026-11-14",
-   "hora": "13:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-14-cf-dia-freidora-cristal.mp4",
-   "titulo": "¿Cuánto crees que cuesta esta freidora de aire de cristal?",
-   "numeros": [
-    62
-   ]
-  },
-  {
-   "id": "2026-11-14-cf-tarde-eero",
-   "fecha": "2026-11-14",
-   "hora": "17:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-14-cf-tarde-eero.mp4",
-   "titulo": "¿El wifi no llega a todos los rincones de casa?",
-   "numeros": [
-    60
-   ]
-  },
-  {
-   "id": "2026-11-14-cf-top3",
-   "fecha": "2026-11-14",
-   "hora": "20:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-14-cf-top3.mp4",
-   "titulo": "Tres chollos desde 9 € para ir guardando antes del Black Friday",
-   "numeros": [
-    61,
-    63,
-    58
-   ]
-  },
-  {
    "id": "2026-11-15-cf-dia-perfume-boss",
    "fecha": "2026-11-15",
    "hora": "13:30",
@@ -252,6 +220,38 @@
     201,
     207,
     195
+   ]
+  },
+  {
+   "id": "2026-11-22-cf-dia-raclette-cecotec",
+   "fecha": "2026-11-22",
+   "hora": "13:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-22-cf-dia-raclette-cecotec.mp4",
+   "titulo": "Regálasela a quien organiza las cenas de Navidad",
+   "numeros": [
+    221
+   ]
+  },
+  {
+   "id": "2026-11-22-cf-tarde-tocadiscos",
+   "fecha": "2026-11-22",
+   "hora": "17:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-22-cf-tarde-tocadiscos.mp4",
+   "titulo": "¿Cuánto crees que cuesta este tocadiscos?",
+   "numeros": [
+    234
+   ]
+  },
+  {
+   "id": "2026-11-22-cf-top3",
+   "fecha": "2026-11-22",
+   "hora": "20:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-22-cf-top3.mp4",
+   "titulo": "¿700 € menos en el día 4? Top 3 de hoy",
+   "numeros": [
+    247,
+    229,
+    220
    ]
   }
  ]
