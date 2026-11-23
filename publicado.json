@@ -1408,6 +1408,13 @@
    "hora": "12:38",
    "message_id": 220,
    "asin": "B0DJC63T2N"
+  },
+  {
+   "clave": "oferta-2026-11-23-268",
+   "fecha": "2026-11-23",
+   "hora": "13:08",
+   "message_id": 221,
+   "asin": "B0C3HCD34R"
   }
  ],
  "precioridiculo": [
@@ -2756,6 +2763,12 @@
    "hora": "12:48",
    "message_id": 212,
    "producto_id": "1005013325203145"
+  },
+  {
+   "clave": "video-2026-11-23-pr-lista-black-friday",
+   "fecha": "2026-11-23",
+   "hora": "13:08",
+   "message_id": 213
   }
  ],
  "fallos": {}
