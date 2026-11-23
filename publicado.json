@@ -1470,6 +1470,13 @@
    "hora": "16:09",
    "message_id": 229,
    "asin": "B00W5LCL8G"
+  },
+  {
+   "clave": "oferta-2026-11-23-260",
+   "fecha": "2026-11-23",
+   "hora": "16:39",
+   "message_id": 230,
+   "asin": "B0CBVJCT68"
   }
  ],
  "precioridiculo": [
@@ -2873,6 +2880,19 @@
    "hora": "16:09",
    "message_id": 220,
    "producto_id": "1005013674730810"
+  },
+  {
+   "clave": "video-2026-11-23-pr-neceser-colgar",
+   "fecha": "2026-11-23",
+   "hora": "16:39",
+   "message_id": 221
+  },
+  {
+   "clave": "oferta-2026-11-23-295",
+   "fecha": "2026-11-23",
+   "hora": "16:39",
+   "message_id": 222,
+   "producto_id": "1005013604556948"
   }
  ],
  "fallos": {}
