@@ -2962,6 +2962,19 @@
    "hora": "18:40",
    "message_id": 226,
    "producto_id": "1005012146477044"
+  },
+  {
+   "clave": "video-2026-11-23-pr-blusa-gatitos",
+   "fecha": "2026-11-23",
+   "hora": "19:00",
+   "message_id": 227
+  },
+  {
+   "clave": "oferta-2026-11-23-288",
+   "fecha": "2026-11-23",
+   "hora": "19:00",
+   "message_id": 228,
+   "producto_id": "1005013668648947"
   }
  ],
  "fallos": {}
