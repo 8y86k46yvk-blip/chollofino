@@ -1,48 +1,6 @@
 {
  "piezas": [
   {
-   "id": "2026-11-15-cf-dia-perfume-boss",
-   "fecha": "2026-11-15",
-   "hora": "13:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-15-cf-dia-perfume-boss.mp4",
-   "titulo": "Perfume BOSS, casi 80 € más barato: un regalo fácil para Navidad",
-   "numeros": [
-    75
-   ]
-  },
-  {
-   "id": "2026-11-15-cf-mascota-robot-friegasuelos",
-   "fecha": "2026-11-15",
-   "hora": "15:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/mascota/2026-11-15-cf-mascota-robot-friegasuelos.mp4",
-   "titulo": "¿Fregar tú? Qué va: este robot aspira y friega por ti",
-   "numeros": [
-    78
-   ]
-  },
-  {
-   "id": "2026-11-15-cf-tarde-lego-star-wars",
-   "fecha": "2026-11-15",
-   "hora": "17:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-15-cf-tarde-lego-star-wars.mp4",
-   "titulo": "Regálaselo al fan de Star Wars: LEGO con un 40 % de descuento",
-   "numeros": [
-    71
-   ]
-  },
-  {
-   "id": "2026-11-15-cf-top3",
-   "fecha": "2026-11-15",
-   "hora": "20:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-15-cf-top3.mp4",
-   "titulo": "¿Tres chollos a menos de la mitad? Para ir guardando antes del Black Friday",
-   "numeros": [
-    78,
-    74,
-    69
-   ]
-  },
-  {
    "id": "2026-11-17-cf-dia-ring-intercom",
    "fecha": "2026-11-17",
    "hora": "13:30",
@@ -252,6 +210,38 @@
     247,
     229,
     220
+   ]
+  },
+  {
+   "id": "2026-11-23-cf-dia-ring-videotimbre",
+   "fecha": "2026-11-23",
+   "hora": "13:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-23-cf-dia-ring-videotimbre.mp4",
+   "titulo": "¿Llaman a la puerta y no estás?",
+   "numeros": [
+    271
+   ]
+  },
+  {
+   "id": "2026-11-23-cf-tarde-fire-tv-stick",
+   "fecha": "2026-11-23",
+   "hora": "17:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-23-cf-tarde-fire-tv-stick.mp4",
+   "titulo": "Regálaselo a quien tiene la tele sin apps",
+   "numeros": [
+    157
+   ]
+  },
+  {
+   "id": "2026-11-23-cf-top3",
+   "fecha": "2026-11-23",
+   "hora": "20:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-23-cf-top3.mp4",
+   "titulo": "730 € menos en el día 5 de la Semana Black Friday",
+   "numeros": [
+    274,
+    269,
+    267
    ]
   }
  ]
