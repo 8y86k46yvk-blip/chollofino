@@ -3142,6 +3142,19 @@
    "hora": "12:29",
    "message_id": 238,
    "producto_id": "1005010544340067"
+  },
+  {
+   "clave": "video-2026-11-24-pr-rebaja-de-verdad",
+   "fecha": "2026-11-24",
+   "hora": "13:09",
+   "message_id": 239
+  },
+  {
+   "clave": "oferta-2026-11-24-330",
+   "fecha": "2026-11-24",
+   "hora": "13:09",
+   "message_id": 240,
+   "producto_id": "1005010202564032"
   }
  ],
  "fallos": {}
