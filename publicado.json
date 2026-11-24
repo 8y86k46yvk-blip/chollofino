@@ -3341,6 +3341,12 @@
    "hora": "18:32",
    "message_id": 251,
    "producto_id": "1005013344406738"
+  },
+  {
+   "clave": "video-2026-11-24-pr-toalla-microfibra",
+   "fecha": "2026-11-24",
+   "hora": "19:02",
+   "message_id": 252
   }
  ],
  "fallos": {}
