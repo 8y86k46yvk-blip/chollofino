@@ -1628,6 +1628,13 @@
    "fecha": "2026-11-24",
    "hora": "13:30",
    "message_id": 252
+  },
+  {
+   "clave": "oferta-2026-11-24-297",
+   "fecha": "2026-11-24",
+   "hora": "13:50",
+   "message_id": 253,
+   "asin": "B01IFGMALM"
   }
  ],
  "precioridiculo": [
