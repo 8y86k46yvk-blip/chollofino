@@ -3479,6 +3479,13 @@
    "hora": "11:19",
    "message_id": 260,
    "producto_id": "1005012943559768"
+  },
+  {
+   "clave": "oferta-2026-11-25-358",
+   "fecha": "2026-11-25",
+   "hora": "11:49",
+   "message_id": 261,
+   "producto_id": "1005013417865026"
   }
  ],
  "fallos": {}
