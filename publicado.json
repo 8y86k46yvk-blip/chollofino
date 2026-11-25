@@ -3720,6 +3720,12 @@
    "hora": "18:42",
    "message_id": 278,
    "producto_id": "1005007175449640"
+  },
+  {
+   "clave": "video-2026-11-25-pr-funda-asa-maleta",
+   "fecha": "2026-11-25",
+   "hora": "19:02",
+   "message_id": 279
   }
  ],
  "fallos": {}
