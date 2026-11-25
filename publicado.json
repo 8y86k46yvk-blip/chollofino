@@ -3631,6 +3631,19 @@
    "hora": "16:01",
    "message_id": 271,
    "producto_id": "1005013671213572"
+  },
+  {
+   "clave": "video-2026-11-25-pr-amatista",
+   "fecha": "2026-11-25",
+   "hora": "16:31",
+   "message_id": 272
+  },
+  {
+   "clave": "oferta-2026-11-25-348",
+   "fecha": "2026-11-25",
+   "hora": "16:31",
+   "message_id": 273,
+   "producto_id": "1005010545529708"
   }
  ],
  "fallos": {}
