@@ -1,48 +1,6 @@
 {
  "piezas": [
   {
-   "id": "2026-11-17-cf-dia-ring-intercom",
-   "fecha": "2026-11-17",
-   "hora": "13:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-17-cf-dia-ring-intercom.mp4",
-   "titulo": "¿Cuánto cuesta abrir el portal desde el móvil?",
-   "numeros": [
-    105
-   ]
-  },
-  {
-   "id": "2026-11-17-cf-mascota-freidora-dual-limpio",
-   "fecha": "2026-11-17",
-   "hora": "15:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/mascota/2026-11-17-cf-mascota-freidora-dual-limpio.mp4",
-   "titulo": "¿Patatas y pollo a la vez? Esta freidora cocina dos cosas juntas",
-   "numeros": [
-    98
-   ]
-  },
-  {
-   "id": "2026-11-17-cf-tarde-beats-solo4",
-   "fecha": "2026-11-17",
-   "hora": "17:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-17-cf-tarde-beats-solo4.mp4",
-   "titulo": "Regálaselos a quien siempre lleva música puesta: Beats Solo 4 a menos de la mitad",
-   "numeros": [
-    106
-   ]
-  },
-  {
-   "id": "2026-11-17-cf-top3",
-   "fecha": "2026-11-17",
-   "hora": "20:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-17-cf-top3.mp4",
-   "titulo": "Tres chollos por menos de 20 € para ir guardando antes del Black Friday",
-   "numeros": [
-    94,
-    95,
-    93
-   ]
-  },
-  {
    "id": "2026-11-18-cf-dia-cafetera-philips",
    "fecha": "2026-11-18",
    "hora": "13:30",
@@ -274,6 +232,38 @@
     297,
     279,
     292
+   ]
+  },
+  {
+   "id": "2026-11-25-cf-dia-freidora-cristal",
+   "fecha": "2026-11-25",
+   "hora": "13:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-25-cf-dia-freidora-cristal.mp4",
+   "titulo": "¿Harto de abrir la freidora para mirar?",
+   "numeros": [
+    320
+   ]
+  },
+  {
+   "id": "2026-11-25-cf-tarde-kindle-colorsoft",
+   "fecha": "2026-11-25",
+   "hora": "17:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-25-cf-tarde-kindle-colorsoft.mp4",
+   "titulo": "Regálaselo a quien devora cómics y revistas",
+   "numeros": [
+    328
+   ]
+  },
+  {
+   "id": "2026-11-25-cf-top3",
+   "fecha": "2026-11-25",
+   "hora": "20:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-25-cf-top3.mp4",
+   "titulo": "¿Cuánto crees que bajan estos tres?",
+   "numeros": [
+    329,
+    321,
+    318
    ]
   }
  ]
