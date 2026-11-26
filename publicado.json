@@ -4106,6 +4106,19 @@
    "hora": "18:36",
    "message_id": 305,
    "producto_id": "1005013431056057"
+  },
+  {
+   "clave": "video-2026-11-26-pr-fundas-dedo-movil",
+   "fecha": "2026-11-26",
+   "hora": "19:06",
+   "message_id": 306
+  },
+  {
+   "clave": "oferta-2026-11-26-369",
+   "fecha": "2026-11-26",
+   "hora": "19:06",
+   "message_id": 307,
+   "producto_id": "1005013486949383"
   }
  ],
  "fallos": {}
