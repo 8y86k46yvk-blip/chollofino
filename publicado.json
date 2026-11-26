@@ -2001,6 +2001,13 @@
    "hora": "12:34",
    "message_id": 306,
    "asin": "B0CWH2DGNN"
+  },
+  {
+   "clave": "oferta-2026-11-26-353",
+   "fecha": "2026-11-26",
+   "hora": "13:04",
+   "message_id": 307,
+   "asin": "B0G5SV5VHG"
   }
  ],
  "precioridiculo": [
@@ -3893,6 +3900,12 @@
    "hora": "12:54",
    "message_id": 291,
    "producto_id": "1005011989937134"
+  },
+  {
+   "clave": "video-2026-11-26-pr-capturas-pedido",
+   "fecha": "2026-11-26",
+   "hora": "13:04",
+   "message_id": 292
   }
  ],
  "fallos": {}
