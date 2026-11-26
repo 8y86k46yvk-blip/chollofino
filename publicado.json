@@ -3872,6 +3872,13 @@
    "hora": "11:53",
    "message_id": 289,
    "producto_id": "1005013665879174"
+  },
+  {
+   "clave": "oferta-2026-11-26-387",
+   "fecha": "2026-11-26",
+   "hora": "12:24",
+   "message_id": 290,
+   "producto_id": "1005013638668267"
   }
  ],
  "fallos": {}
