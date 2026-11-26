@@ -1,38 +1,6 @@
 {
  "piezas": [
   {
-   "id": "2026-11-18-cf-dia-cafetera-philips",
-   "fecha": "2026-11-18",
-   "hora": "13:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-18-cf-dia-cafetera-philips.mp4",
-   "titulo": "Esta cafetera baja más de 250 €: Philips Serie 5400 con LatteGo",
-   "numeros": [
-    120
-   ]
-  },
-  {
-   "id": "2026-11-18-cf-tarde-salomon",
-   "fecha": "2026-11-18",
-   "hora": "17:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-18-cf-tarde-salomon.mp4",
-   "titulo": "¿Unas Salomon Gore-Tex por 91,09 €?",
-   "numeros": [
-    117
-   ]
-  },
-  {
-   "id": "2026-11-18-cf-top3",
-   "fecha": "2026-11-18",
-   "hora": "20:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-18-cf-top3.mp4",
-   "titulo": "Tres regalos a menos de mitad de precio para ir guardando antes del Black Friday",
-   "numeros": [
-    121,
-    115,
-    111
-   ]
-  },
-  {
    "id": "2026-11-19-cf-dia-ninja-doble",
    "fecha": "2026-11-19",
    "hora": "13:30",
@@ -264,6 +232,38 @@
     329,
     321,
     318
+   ]
+  },
+  {
+   "id": "2026-11-26-cf-dia-blink-pack",
+   "fecha": "2026-11-26",
+   "hora": "13:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-26-cf-dia-blink-pack.mp4",
+   "titulo": "¿Dos cámaras de vigilancia por 24,99 €?",
+   "numeros": [
+    357
+   ]
+  },
+  {
+   "id": "2026-11-26-cf-tarde-soundcore-c50i",
+   "fecha": "2026-11-26",
+   "hora": "17:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-26-cf-tarde-soundcore-c50i.mp4",
+   "titulo": "¿Con auriculares no oyes lo que pasa a tu alrededor?",
+   "numeros": [
+    352
+   ]
+  },
+  {
+   "id": "2026-11-26-cf-top3",
+   "fecha": "2026-11-26",
+   "hora": "20:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-26-cf-top3.mp4",
+   "titulo": "Tres regalos de Navidad que hoy salen rebajados",
+   "numeros": [
+    359,
+    355,
+    332
    ]
   }
  ]
