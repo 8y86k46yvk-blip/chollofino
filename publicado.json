@@ -4230,6 +4230,13 @@
    "hora": "11:07",
    "message_id": 315,
    "producto_id": "1005012591742056"
+  },
+  {
+   "clave": "oferta-2026-11-27-418",
+   "fecha": "2026-11-27",
+   "hora": "11:17",
+   "message_id": 316,
+   "producto_id": "1005012262090603"
   }
  ],
  "fallos": {}
