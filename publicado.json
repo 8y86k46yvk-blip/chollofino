@@ -4430,6 +4430,13 @@
    "hora": "16:40",
    "message_id": 330,
    "producto_id": "1005013670094617"
+  },
+  {
+   "clave": "oferta-2026-11-27-401",
+   "fecha": "2026-11-27",
+   "hora": "17:10",
+   "message_id": 331,
+   "producto_id": "1005010545661695"
   }
  ],
  "fallos": {}
