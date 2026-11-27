@@ -4286,6 +4286,19 @@
    "hora": "12:38",
    "message_id": 319,
    "producto_id": "1005013045577400"
+  },
+  {
+   "clave": "video-2026-11-27-pr-gastos-envio",
+   "fecha": "2026-11-27",
+   "hora": "13:08",
+   "message_id": 320
+  },
+  {
+   "clave": "oferta-2026-11-27-414",
+   "fecha": "2026-11-27",
+   "hora": "13:08",
+   "message_id": 321,
+   "producto_id": "1005013647376268"
   }
  ],
  "fallos": {}
