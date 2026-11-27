@@ -2284,6 +2284,12 @@
    "hora": "17:20",
    "message_id": 348,
    "asin": "B0GQM1RCYY"
+  },
+  {
+   "clave": "video-2026-11-27-cf-tarde-senor-anillos",
+   "fecha": "2026-11-27",
+   "hora": "17:30",
+   "message_id": 349
   }
  ],
  "precioridiculo": [
@@ -4444,6 +4450,13 @@
    "hora": "17:10",
    "message_id": 331,
    "producto_id": "1005010545661695"
+  },
+  {
+   "clave": "oferta-2026-11-27-400",
+   "fecha": "2026-11-27",
+   "hora": "17:30",
+   "message_id": 332,
+   "producto_id": "1005013045469139"
   }
  ],
  "fallos": {}
