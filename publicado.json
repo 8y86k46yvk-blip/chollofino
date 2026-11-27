@@ -2263,6 +2263,13 @@
    "hora": "16:00",
    "message_id": 345,
    "asin": "B0FQGRG73S"
+  },
+  {
+   "clave": "oferta-2026-11-27-373",
+   "fecha": "2026-11-27",
+   "hora": "16:30",
+   "message_id": 346,
+   "asin": "B09BD7L35V"
   }
  ],
  "precioridiculo": [
@@ -4403,6 +4410,12 @@
    "hora": "16:10",
    "message_id": 328,
    "producto_id": "1005012761854854"
+  },
+  {
+   "clave": "video-2026-11-27-pr-cerdito-vater",
+   "fecha": "2026-11-27",
+   "hora": "16:30",
+   "message_id": 329
   }
  ],
  "fallos": {}
