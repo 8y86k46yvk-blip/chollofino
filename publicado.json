@@ -2215,6 +2215,19 @@
    "hora": "13:18",
    "message_id": 338,
    "asin": "B0FGJ9P8L9"
+  },
+  {
+   "clave": "video-2026-11-27-cf-dia-ring-intercom-fire-tv",
+   "fecha": "2026-11-27",
+   "hora": "13:38",
+   "message_id": 339
+  },
+  {
+   "clave": "oferta-2026-11-27-379",
+   "fecha": "2026-11-27",
+   "hora": "13:38",
+   "message_id": 340,
+   "asin": "B0GL2G5VP7"
   }
  ],
  "precioridiculo": [
@@ -4306,6 +4319,13 @@
    "hora": "13:08",
    "message_id": 321,
    "producto_id": "1005013647376268"
+  },
+  {
+   "clave": "oferta-2026-11-27-412",
+   "fecha": "2026-11-27",
+   "hora": "13:38",
+   "message_id": 322,
+   "producto_id": "1005010589984040"
   }
  ],
  "fallos": {}
