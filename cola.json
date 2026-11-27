@@ -1,48 +1,6 @@
 {
  "piezas": [
   {
-   "id": "2026-11-19-cf-dia-ninja-doble",
-   "fecha": "2026-11-19",
-   "hora": "13:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-19-cf-dia-ninja-doble.mp4",
-   "titulo": "¿Cuánto crees que cuesta esta freidora doble?",
-   "numeros": [
-    154
-   ]
-  },
-  {
-   "id": "2026-11-19-cf-mascota-videotimbre",
-   "fecha": "2026-11-19",
-   "hora": "15:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/mascota/2026-11-19-cf-mascota-videotimbre.mp4",
-   "titulo": "¿No oyes cuando llaman a la puerta?",
-   "numeros": [
-    150
-   ]
-  },
-  {
-   "id": "2026-11-19-cf-tarde-taladro-bosch",
-   "fecha": "2026-11-19",
-   "hora": "17:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-19-cf-tarde-taladro-bosch.mp4",
-   "titulo": "Regálaselo a quien monta todos los muebles",
-   "numeros": [
-    131
-   ]
-  },
-  {
-   "id": "2026-11-19-cf-top3",
-   "fecha": "2026-11-19",
-   "hora": "20:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-19-cf-top3.mp4",
-   "titulo": "Hasta 200 € menos en el día 1 de la Semana Black Friday",
-   "numeros": [
-    155,
-    152,
-    146
-   ]
-  },
-  {
    "id": "2026-11-20-cf-dia-blink-outdoor",
    "fecha": "2026-11-20",
    "hora": "13:30",
@@ -264,6 +222,38 @@
     359,
     355,
     332
+   ]
+  },
+  {
+   "id": "2026-11-27-cf-dia-ring-intercom-fire-tv",
+   "fecha": "2026-11-27",
+   "hora": "13:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-27-cf-dia-ring-intercom-fire-tv.mp4",
+   "titulo": "¿Te levantas cada vez que llaman al portal?",
+   "numeros": [
+    380
+   ]
+  },
+  {
+   "id": "2026-11-27-cf-tarde-senor-anillos",
+   "fecha": "2026-11-27",
+   "hora": "17:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-27-cf-tarde-senor-anillos.mp4",
+   "titulo": "Regálasela al fan de Frodo y Gandalf",
+   "numeros": [
+    370
+   ]
+  },
+  {
+   "id": "2026-11-27-cf-top3",
+   "fecha": "2026-11-27",
+   "hora": "20:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-27-cf-top3.mp4",
+   "titulo": "¿Cuánto crees que bajan los mejores de hoy? Top 3 del Black Friday",
+   "numeros": [
+    386,
+    377,
+    383
    ]
   }
  ]
