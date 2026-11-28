@@ -4759,6 +4759,19 @@
    "hora": "18:35",
    "message_id": 362,
    "producto_id": "1005007798294134"
+  },
+  {
+   "clave": "video-2026-11-28-pr-cama-gato-osito",
+   "fecha": "2026-11-28",
+   "hora": "19:05",
+   "message_id": 363
+  },
+  {
+   "clave": "oferta-2026-11-28-426",
+   "fecha": "2026-11-28",
+   "hora": "19:05",
+   "message_id": 364,
+   "producto_id": "1005013622681236"
   }
  ],
  "fallos": {}
