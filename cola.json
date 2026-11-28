@@ -1,38 +1,6 @@
 {
  "piezas": [
   {
-   "id": "2026-11-20-cf-dia-blink-outdoor",
-   "fecha": "2026-11-20",
-   "hora": "13:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-20-cf-dia-blink-outdoor.mp4",
-   "titulo": "Esta cámara Blink baja más de 100 €",
-   "numeros": [
-    161
-   ]
-  },
-  {
-   "id": "2026-11-20-cf-tarde-cafetera-cecotec",
-   "fecha": "2026-11-20",
-   "hora": "17:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-20-cf-tarde-cafetera-cecotec.mp4",
-   "titulo": "¿Una superautomática por 179 €?",
-   "numeros": [
-    184
-   ]
-  },
-  {
-   "id": "2026-11-20-cf-top3",
-   "fecha": "2026-11-20",
-   "hora": "20:30",
-   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-20-cf-top3.mp4",
-   "titulo": "3 regalos que bajan hasta 400 €",
-   "numeros": [
-    186,
-    177,
-    163
-   ]
-  },
-  {
    "id": "2026-11-21-cf-dia-freidora-bosch",
    "fecha": "2026-11-21",
    "hora": "13:30",
@@ -254,6 +222,38 @@
     386,
     377,
     383
+   ]
+  },
+  {
+   "id": "2026-11-28-cf-dia-crema-cuello-medicube",
+   "fecha": "2026-11-28",
+   "hora": "13:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-28-cf-dia-crema-cuello-medicube.mp4",
+   "titulo": "¿Te cuidas el cuello? ¿Por menos de 20 €?",
+   "numeros": [
+    387
+   ]
+  },
+  {
+   "id": "2026-11-28-cf-tarde-echo-show-8",
+   "fecha": "2026-11-28",
+   "hora": "17:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-28-cf-tarde-echo-show-8.mp4",
+   "titulo": "¿Cuánto crees que cuesta esta pantalla con Alexa?",
+   "numeros": [
+    384
+   ]
+  },
+  {
+   "id": "2026-11-28-cf-top3",
+   "fecha": "2026-11-28",
+   "hora": "20:30",
+   "url": "https://shorts.todo-picks-academy.pages.dev/chollofino/shorts/2026-11-28-cf-top3.mp4",
+   "titulo": "¿Buscas regalo? 3 chollos por menos de 20 €",
+   "numeros": [
+    385,
+    363,
+    372
    ]
   }
  ]
