@@ -2379,6 +2379,12 @@
    "fecha": "2026-11-28",
    "hora": "13:33",
    "message_id": 362
+  },
+  {
+   "clave": "video-2026-11-28-cf-tarde-echo-show-8",
+   "fecha": "2026-11-28",
+   "hora": "17:34",
+   "message_id": 363
   }
  ],
  "precioridiculo": [
@@ -4732,6 +4738,13 @@
    "hora": "17:04",
    "message_id": 359,
    "producto_id": "1005012968133830"
+  },
+  {
+   "clave": "oferta-2026-11-28-430",
+   "fecha": "2026-11-28",
+   "hora": "17:34",
+   "message_id": 360,
+   "producto_id": "1005013642045979"
   }
  ],
  "fallos": {}
